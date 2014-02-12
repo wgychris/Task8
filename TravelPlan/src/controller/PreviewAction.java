@@ -10,10 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.genericdao.RollbackException;
 
-import databeans.PlanBean;
 import databeans.UserBean;
 import model.Model;
-import model.PlanDAO;
 
 import org.genericdao.*;
 

@@ -3,9 +3,7 @@ package databeans;
 import org.genericdao.PrimaryKey;
 
 /*
- * Customer JavaBean
- * Yusi Jan 19 Version 1.0
- * co-author
+ * User JavaBean
  */
 
 @PrimaryKey("user_id")

@@ -36,7 +36,7 @@ public class ViewPlanAction extends Action {
 		request.setAttribute("errors", errors);
 		try {
 
-			// customer from session;
+			// user from session;
 			UserBean user = (UserBean) request.getSession().getAttribute(
 					"user");
 			int user_id = user.getUser_id();

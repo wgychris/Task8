@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import model.Model;
 import model.UserDAO;
@@ -70,12 +71,14 @@ public class SignUpAction extends Action {
 			Transaction.commit();
 
 			// Look up the user
-			UserBean cb = new UserBean();
-			cb.setUsername(form.getUserName());
-			cb.setPassword(form.getPassword());
+			UserBean userBean = new UserBean();
+			userBean.setUsername(form.getUserName());
+			userBean.setPassword(form.getPassword());
 			Transaction.begin();
-			userDAO.createAutoIncrement(cb);
+			userDAO.createAutoIncrement(userBean);
 			request.setAttribute("message", "new user has been created");
+			HttpSession session = request.getSession();
+			session.setAttribute("user", userBean);
 			Transaction.commit();
 			return "success.jsp";
 		} catch (FormBeanException e) {

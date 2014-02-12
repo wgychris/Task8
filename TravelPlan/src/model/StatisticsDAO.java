@@ -15,7 +15,7 @@ public class StatisticsDAO extends GenericDAO<StatisticsBean>{
 	}
 	
 	/*
-	 * Create New Statistics row (used by employee and customer)
+	 * Create New Statistics row 
 	 * @param statisticsBean(both primary keys shall not be empty)
 	 * @return void
 	 */

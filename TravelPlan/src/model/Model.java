@@ -5,8 +5,6 @@ import javax.servlet.ServletException;
 
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
-import org.genericdao.RollbackException;
-import org.genericdao.Transaction;
 
 /*
  * General Model

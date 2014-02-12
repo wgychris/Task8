@@ -2,8 +2,6 @@ package model;
 
 /*
  * UserDAO
- * Yusi Jan 19 Version 1.0
- * co-author
  */
 
 import org.genericdao.ConnectionPool;
