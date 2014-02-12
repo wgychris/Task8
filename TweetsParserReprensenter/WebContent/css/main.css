@@ -1,0 +1,17 @@
+.sidebar-nav {
+margin: 0;
+padding: 0;
+}
+#sidebar-wrapper {
+}
+
+.sidebar-nav > .sidebar-brand {
+height: 65px;
+line-height: 60px;
+font-size: 18px;
+}
+
+.sidebar-nav li {
+line-height: 40px;
+text-indent: 20px;
+}

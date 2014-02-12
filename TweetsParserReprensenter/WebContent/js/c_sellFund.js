@@ -1,0 +1,3 @@
+function getFundInfo () {
+	// body...
+}
