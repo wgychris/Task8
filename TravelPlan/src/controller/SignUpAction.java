@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import model.Model;
 import model.UserDAO;
@@ -14,14 +13,11 @@ import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
-import formbeans.SignInForm;
-
-import org.genericdao.*;
-
 import databeans.UserBean;
+import formbeans.SignUpForm;
 
 /*
- * Processes the parameters from the form in login.jsp.
+ * Processes the parameters from the form in signup.jsp.
  * If successful, set the "user" session attribute to the
  * user's User bean and then redirects to view the originally
  * requested photo.  If there was no photo originally requested
@@ -29,18 +25,19 @@ import databeans.UserBean;
  * value), just redirect to manage.do to allow the user to manage
  * his photos.
  */
-public class SignInAction extends Action {
-	private FormBeanFactory<SignInForm> formBeanFactory = FormBeanFactory
-			.getInstance(SignInForm.class);
+
+public class SignUpAction extends Action {
+	private FormBeanFactory<SignUpForm> formBeanFactory = FormBeanFactory
+			.getInstance(SignUpForm.class);
 
 	private UserDAO userDAO;
 
-	public SignInAction(Model model) {
+	public SignUpAction(Model model) {
 		userDAO = model.getUserDAO();
 	}
 
 	public String getName() {
-		return "signin.do";
+		return "signup.do";
 	}
 
 	public String perform(HttpServletRequest request) {
@@ -48,52 +45,47 @@ public class SignInAction extends Action {
 		request.setAttribute("errors", errors);
 
 		try {
-			SignInForm form = formBeanFactory.create(request);
+			SignUpForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
 
 			// If no params were passed, return with no errors so that the form
 			// will be
 			// presented (we assume for the first time).
 			if (!form.isPresent()) {
-				return "signin.jsp";
+				return "signup.jsp";
 			}
 
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
-				return "signin.jsp";
+				return "signup.jsp";
 			}
 
 			Transaction.begin();
-			// Look up the user
-			UserBean user = userDAO.login(form.getUserName(),
-					form.getPassword());
-
-			if (user == null) {
-				errors.add("Username and passwor not match");
+			if (userDAO.getUserId(form.getUserName()) != -1) {
+				errors.add("UserName is already existed!");
 				Transaction.commit();
-				return "signin.jsp";
+				return "signup.jsp";
 			}
-
-			if (!user.checkPassword(form.getPassword())) {
-				errors.add("Username and passwor not match");
-				return "signin.jsp";
-			}
-
-			// Attach (this copy of) the user bean to the session
-			HttpSession session = request.getSession();
-			session.setMaxInactiveInterval(600);
-			session.setAttribute("user", user);
 			Transaction.commit();
-			return "search.do";
+
+			// Look up the user
+			UserBean cb = new UserBean();
+			cb.setUsername(form.getUserName());
+			cb.setPassword(form.getPassword());
+			Transaction.begin();
+			userDAO.createAutoIncrement(cb);
+			request.setAttribute("message", "new user has been created");
+			Transaction.commit();
+			return "success.jsp";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
-			return "signin.jsp";
+			return "signup.jsp";
 		} catch (RollbackException e) {
-			return "signin.jsp";
+			return "signup.jsp";
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return "signin.jsp";
+			return "signup.jsp";
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();

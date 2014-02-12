@@ -12,16 +12,15 @@ public class SearchForm extends FormBean {
 		return place;
 	}
 
-	public void setFundTicker(String fundTicker) {
-		this.place = trimAndConvert(fundTicker, "<>\"");
+	public void setPlace(String place) {
+		this.place = trimAndConvert(place, "<>\"");
 	}
 
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
 		if (place == null || place.length() == 0) {
-			errors.add("FundTicker is required");
+			errors.add("Please enter a place");
 		}
-
 		return errors;
 	}
 }

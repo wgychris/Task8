@@ -20,11 +20,11 @@ public class LogoutAction extends Action {
 
 	public String perform(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		session.setAttribute("customer", null);
+		session.setAttribute("user", null);
 
 		request.setAttribute(
 				"message",
-				"You are now logged out <br></br><a type=\"button\" class=\"btn btn-primary btn-lg\" href=\"entry.do\">Homepage</a>");
-		return "c_success.jsp";
+				"You have sucessfully logged out");
+		return "success.jsp";
 	}
 }

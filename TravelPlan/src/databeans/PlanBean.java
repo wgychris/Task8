@@ -9,8 +9,8 @@ public class PlanBean {
 	private int user_id;
 	private String date;
 	private String place;
-	private String[] tweets;
-	private String[] flickers;
+	private String tweets;
+	private String flickers;
 	public int getPlan_id() {
 		return plan_id;
 	}
@@ -35,16 +35,16 @@ public class PlanBean {
 	public void setPlace(String place) {
 		this.place = place;
 	}
-	public String[] getTweets() {
+	public String getTweets() {
 		return tweets;
 	}
-	public void setTweets(String[] tweets) {
+	public void setTweets(String tweets) {
 		this.tweets = tweets;
 	}
-	public String[] getFlickers() {
+	public String getFlickers() {
 		return flickers;
 	}
-	public void setFlickers(String[] flickers) {
+	public void setFlickers(String flickers) {
 		this.flickers = flickers;
 	}
 

@@ -18,7 +18,6 @@ public class SearchAction extends Action {
 	private FormBeanFactory<SearchForm> formBeanFactory = FormBeanFactory
 			.getInstance(SearchForm.class);
 
-
 	public SearchAction(Model model) {
 	}
 
@@ -39,9 +38,8 @@ public class SearchAction extends Action {
 			}
 
 			Transaction.begin();
-			
-			//any errors
-			
+
+			// any errors
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
 				Transaction.commit();
@@ -50,7 +48,7 @@ public class SearchAction extends Action {
 
 			Transaction.commit();
 
-			return "search.jsp";
+			return "result.do";
 		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "search.jsp";

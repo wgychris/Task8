@@ -11,28 +11,34 @@ import javax.servlet.http.HttpServletRequest;
 import org.genericdao.RollbackException;
 
 import databeans.UserBean;
+import formbeans.ResultForm;
 import model.Model;
 
 import org.genericdao.*;
+import org.mybeans.form.FormBeanFactory;
 
 public class ResultAction extends Action {
-
-	// private PlanDAO planDAO;
+	private FormBeanFactory<ResultForm> formBeanFactory = FormBeanFactory
+			.getInstance(ResultForm.class);
 
 	// ini DAOs
 	public ResultAction(Model model) {
-		// planDAO = model.getPlanDAO();
 	}
 
 	public String getName() {
-		return "reslut.do";
+		return "result.do";
 	}
 
 	public String perform(HttpServletRequest request) {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
 		try {
+			ResultForm form = formBeanFactory.create(request);
+			request.setAttribute("form", form);
 
+			if (!form.isPresent()) {
+				return "result.jsp";
+			}
 			UserBean user = (UserBean) request.getSession()
 					.getAttribute("user");
 			int user_id = user.getUser_id();
@@ -52,9 +58,11 @@ public class ResultAction extends Action {
 
 			String[] checkboxes = request.getParameterValues("checkbox");
 			// checkbox process in both front and back end needed.
-
+			request.setAttribute(
+					"message",
+					"You have sucessfully shared your travel plan on Twitter");
 			Transaction.commit();
-			return "result.jsp";
+			return "success.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.toString());
 			return "result.jsp";

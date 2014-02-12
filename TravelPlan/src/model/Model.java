@@ -20,33 +20,28 @@ public class Model {
 
 	public Model(ServletConfig config) throws ServletException {
 		try {
-			Transaction.begin();// necessary?
 			String jdbcDriver = config.getInitParameter("jdbcDriverName");
 			String jdbcURL = config.getInitParameter("jdbcURL");
 
-			ConnectionPool pool = new ConnectionPool(jdbcDriver, jdbcURL);
+			ConnectionPool pool = new ConnectionPool(jdbcDriver, jdbcURL,"root","root");
 			uDAO = new UserDAO("customer", pool);
 			statisticsDAO = new StatisticsDAO("position", pool);
 			planDAO = new PlanDAO("plan", pool);
-			Transaction.commit();
 		} catch (DAOException e) {
 			throw new ServletException(e);
-		} catch (RollbackException e) {
-			e.printStackTrace();
 		}
 	}
 
-	public UserDAO getCustomerDAO() {
+	public UserDAO getUserDAO() {
 		return uDAO;
 	}
 
 	public PlanDAO getPlanDAO() {
 		return planDAO;
 	}
-	
-	public StatisticsDAO getStatisticsDAO(){
+
+	public StatisticsDAO getStatisticsDAO() {
 		return statisticsDAO;
 	}
-
 
 }
