@@ -27,7 +27,7 @@
 				</table>
 				<hr>
 				<p>
-					<a class="btn btn-default" href="#">&laquo; Back</a>
+					<a class="btn btn-default" href="search.do">&laquo; Back</a>
 				</p>
 			</div>
 		</div>

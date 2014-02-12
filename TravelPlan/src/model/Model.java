@@ -23,9 +23,9 @@ public class Model {
 			String jdbcDriver = config.getInitParameter("jdbcDriverName");
 			String jdbcURL = config.getInitParameter("jdbcURL");
 
-			ConnectionPool pool = new ConnectionPool(jdbcDriver, jdbcURL,"root","root");
-			uDAO = new UserDAO("customer", pool);
-			statisticsDAO = new StatisticsDAO("position", pool);
+			ConnectionPool pool = new ConnectionPool(jdbcDriver, jdbcURL);
+			uDAO = new UserDAO("user", pool);
+			statisticsDAO = new StatisticsDAO("statistics", pool);
 			planDAO = new PlanDAO("plan", pool);
 		} catch (DAOException e) {
 			throw new ServletException(e);
