@@ -56,7 +56,7 @@ public class Controller extends HttpServlet {
 
 		// System.out.println("servletPath="+servletPath+" requestURI="+request.getRequestURI()+"  user="+user);
 
-		if (userBean == null && !action.equals("search.do")
+		if (userBean == null && !action.equals("search.do") && !action.equals("result.do")
 				&& !action.equals("signup.do") && !action.equals("signin.do")) {
 			return Action.perform("signin.do", request);
 		} else {

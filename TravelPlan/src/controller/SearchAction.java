@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.stream.XMLStreamException;
 
+import model.GetFlickr;
 import model.Model;
 
 import org.genericdao.RollbackException;
@@ -12,6 +14,7 @@ import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
+import databeans.PhotoBean;
 import formbeans.SearchForm;
 
 public class SearchAction extends Action {
@@ -28,7 +31,8 @@ public class SearchAction extends Action {
 	public String perform(HttpServletRequest request) {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
-
+		
+		//System.out.println("==========");
 		try {
 			SearchForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
@@ -46,6 +50,16 @@ public class SearchAction extends Action {
 				return "search.jsp";
 			}
 
+			ArrayList<PhotoBean> res = new ArrayList<PhotoBean>();
+			//String key=request.getParameter("keyword");
+			try {
+				res=GetFlickr.getPhotos(form.getPlace(), 10);
+				//System.out.println(res.size());
+			} catch (XMLStreamException e) {
+				e.printStackTrace();
+			}
+			//System.out.println(res.size()+"+++");
+			request.getSession().setAttribute("photos", res);
 			Transaction.commit();
 
 			return "result.do";

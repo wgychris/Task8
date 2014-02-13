@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.genericdao.RollbackException;
 
+import databeans.PhotoBean;
 import databeans.UserBean;
 import formbeans.ResultForm;
 import model.Model;
@@ -36,31 +37,40 @@ public class ResultAction extends Action {
 			ResultForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
 
+			UserBean user = (UserBean) request.getSession()
+					.getAttribute("user");
+			ArrayList<PhotoBean> arr=(ArrayList<PhotoBean>) request.getSession().getAttribute("photos");
+			//System.out.println(arr.size()+"========");
+			request.setAttribute("photos", arr);
+			Transaction.begin();
 			if (!form.isPresent()) {
 				return "result.jsp";
 			}
-			UserBean user = (UserBean) request.getSession()
-					.getAttribute("user");
-			int user_id = user.getUser_id();
-
+			//UserBean user = (UserBean) request.getSession()
+					//.getAttribute("user");
+			//int user_id = user.getUser_id();
+			
+			//ArrayList<PhotoBean> arr=(ArrayList<PhotoBean>) request.getSession().getAttribute("photos");
+			//System.out.println(arr.size());
+			//request.setAttribute("photos", arr);
 			Transaction.begin();
-			ArrayList<String> tweets = new ArrayList<String>();
+			/*ArrayList<String> tweets = new ArrayList<String>();
 			tweets.add("tweet 1");
 			tweets.add("tweet 2");
 			ArrayList<String> flickers = new ArrayList<String>();
 			flickers.add("http://farm9.staticflickr.com/8160/7572579946_d3c5091482_b.jpg");
 			flickers.add("http://farm4.staticflickr.com/3217/2685676056_321559e444_b.jpg");
 			flickers.add("http://farm9.staticflickr.com/8393/8629407513_8c7479645f.jpg");
-			flickers.add("http://farm4.staticflickr.com/3659/5820179578_322e783f2a_b.jpg");
+			flickers.add("http://farm4.staticflickr.com/3659/5820179578_322e783f2a_b.jpg");*/
 
-			request.setAttribute("tweets", tweets);
-			request.setAttribute("flickers", flickers);
+			//request.setAttribute("tweets", tweets);
+			//request.setAttribute("flickers", flickers);
 
 			String[] checkboxes = request.getParameterValues("checkbox");
 			// checkbox process in both front and back end needed.
-			request.setAttribute(
-					"message",
-					"You have sucessfully shared your travel plan on Twitter");
+			//request.setAttribute(
+					//"message",
+					//"You have sucessfully shared your travel plan on Twitter");
 			Transaction.commit();
 			return "success.jsp";
 		} catch (RollbackException e) {
