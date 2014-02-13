@@ -2,7 +2,10 @@
 <hr>
 <br>
 <footer>
-	<p class="text-center">Copyright &copy; Team Alliance 2014</p>
+	<div class="container">
+		<p class="muted credit">Copyright &copy; 2014 Team
+			Alliance.</p>
+	</div>
 </footer>
 
 </div>

@@ -55,8 +55,10 @@ body {
 					</ul>
 					<c:if test="${!empty user}">
 						<ul class="nav pull-right">
-							<li class="dropdown "><a href="viewPlan.do" class="dropdown-toggle"
-								data-toggle="dropdown">My Travel Plan<b class="caret"></b></a>
+							<li class="dropdown "><a href="viewPlan.do"
+								class="dropdown-toggle" data-toggle="dropdown">My Travel
+									Plan<b class="caret"></b>
+							</a>
 								<ul class="dropdown-menu pull-right">
 									<li class="pull-right"><a href="search.do">Make a Plan</a></li>
 									<li class="pull-right"><a href="viewPlan.do">View My
