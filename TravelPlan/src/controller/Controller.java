@@ -54,14 +54,14 @@ public class Controller extends HttpServlet {
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		String action = getActionName(servletPath);
 
-		// System.out.println("servletPath="+servletPath+" requestURI="+request.getRequestURI()+"  user="+user);
-
+/*
 		if (userBean == null && !action.equals("search.do") && !action.equals("result.do")
 				&& !action.equals("signup.do") && !action.equals("signin.do")) {
 			return Action.perform("signin.do", request);
 		} else {
 			return Action.perform(action, request);
-		}
+		}*/
+		return Action.perform(action, request);//for test
 	}
 
 	/*

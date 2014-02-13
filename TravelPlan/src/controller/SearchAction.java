@@ -31,8 +31,7 @@ public class SearchAction extends Action {
 	public String perform(HttpServletRequest request) {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
-		
-		//System.out.println("==========");
+
 		try {
 			SearchForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
@@ -50,16 +49,18 @@ public class SearchAction extends Action {
 				return "search.jsp";
 			}
 
+			/*
 			ArrayList<PhotoBean> res = new ArrayList<PhotoBean>();
-			//String key=request.getParameter("keyword");
 			try {
-				res=GetFlickr.getPhotos(form.getPlace(), 10);
-				//System.out.println(res.size());
+				res = GetFlickr.getPhotos(form.getPlace(), 10);
+				// System.out.println(res.size());
 			} catch (XMLStreamException e) {
 				e.printStackTrace();
 			}
-			//System.out.println(res.size()+"+++");
-			request.getSession().setAttribute("photos", res);
+			request.getSession().setAttribute("flickers", res);
+			// System.out.println(res.size()+"+++");*/
+			request.getSession().setAttribute("place", form.getPlace());
+			
 			Transaction.commit();
 
 			return "result.do";

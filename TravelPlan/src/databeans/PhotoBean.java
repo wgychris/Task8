@@ -3,7 +3,7 @@ package databeans;
 import java.io.Serializable;
 
 public class PhotoBean implements Serializable{
-
+	
 	private String url;
 
 	public String getUrl() {

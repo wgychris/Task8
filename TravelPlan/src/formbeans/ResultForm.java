@@ -7,7 +7,7 @@ import org.mybeans.form.FormBean;
 
 public class ResultForm extends FormBean {
 	private String tweets;
-	private String flickers;
+	private String flickerbox;
 
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
@@ -29,12 +29,12 @@ public class ResultForm extends FormBean {
 		this.tweets = tweets;
 	}
 
-	public String getFlickers() {
-		return "flickers";
-//		return flickers;
+
+	public String getFlickerbox() {
+		return flickerbox;
 	}
 
-	public void setFlickers(String flickers) {
-		this.flickers = flickers;
+	public void setFlickerbox(String flickerbox) {
+		this.flickerbox = flickerbox;
 	}
 }
