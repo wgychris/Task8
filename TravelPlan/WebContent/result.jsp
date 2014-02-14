@@ -16,18 +16,18 @@
 							<h4>Choose Pictures</h4>
 							<hr>
 							<div class="row-fluid">
-								<c:if test="${empty flickers}">
+								<c:if test="${empty flickrs}">
 									<p>No result found. Please try another key word.</p>
 								</c:if>
-								<c:if test="${!empty flickers}">
+								<c:if test="${!empty flickrs}">
 									<ul class="thumbnails">
-										<c:forEach items="${flickers}" var="flicker">
+										<c:forEach items="${flickrs}" var="flickr">
 											<div class="row-fuild">
 												<li class="span12"><div class="thumbnail">
-														<a href="${flicker.url}"> <img src="${flicker.url}"></a>
+														<a href="${flickr.url}"> <img src="${flickr.url}"></a>
 														<p>
-															<input type="checkbox" name="flickerbox"
-																value="${flicker.url}">
+															<input type="checkbox" name="flickrbox"
+																value="${flickr.url}">
 														</p>
 													</div></li>
 										</c:forEach>
@@ -72,22 +72,22 @@
 						</div>
 					</div>
 				</div>
-				<%if(request.getSession().getAttribute("user")!=null){ %>
+			<%-- 	<%if(request.getSession().getAttribute("user")!=null){ %>
 				<div align="center">
 				<a href="#myModal" role="button" class="btn" data-toggle="modal">login
 					first</a>
 					</div>
 				<%}else{%>
-
+ --%>
 				<div align="center">
 					<button type="submit" class="btn btn-primary">Share
 						&raquo;</button>
 				</div>
-				<%} %>
+				<%-- <%} %> --%>
 			</form>
-		</div>
-		<!-- Modal -->
-		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog"
+		</div> 
+		 <!-- Modal -->
+		<!-- <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
@@ -101,7 +101,7 @@
 				<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
 				<button class="btn btn-primary">save</button>
 			</div>
-		</div>
+		</div>  -->
 
 
-		<jsp:include page="template-bottom.jsp" />
+				<jsp:include page="template-bottom.jsp" />

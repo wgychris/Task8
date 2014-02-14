@@ -13,13 +13,13 @@ import org.genericdao.RollbackException;
 
 import databeans.PhotoBean;
 import databeans.PlanBean;
-import databeans.PlanFlickerBean;
+import databeans.PlanFlickrBean;
 import databeans.UserBean;
 import formbeans.ResultForm;
 import model.GetFlickr;
 import model.Model;
 import model.PlanDAO;
-import model.PlanFlickerDAO;
+import model.PlanFlickrDAO;
 
 import org.genericdao.*;
 import org.mybeans.form.FormBeanFactory;
@@ -28,12 +28,12 @@ public class ResultAction extends Action {
 	private FormBeanFactory<ResultForm> formBeanFactory = FormBeanFactory
 			.getInstance(ResultForm.class);
 	private PlanDAO planDAO;
-	private PlanFlickerDAO planFlickerDAO;
+	private PlanFlickrDAO planFlickrDAO;
 
 	// ini DAOs
 	public ResultAction(Model model) {
 		planDAO = model.getPlanDAO();
-		planFlickerDAO = model.getPlanFlickerDAO();
+		planFlickrDAO = model.getPlanFlickerDAO();
 	}
 
 	public String getName() {
@@ -49,12 +49,12 @@ public class ResultAction extends Action {
 
 			UserBean user = (UserBean) request.getSession()
 					.getAttribute("user");
-			if(user==null){
+			if (user == null) {
 				System.out.println("no user");
 			}
 			ArrayList<PhotoBean> res = new ArrayList<PhotoBean>();
 			String place = (String) request.getSession().getAttribute("place");
-			System.out.println("place " + place );
+			System.out.println("place " + place);
 			try {
 				res = GetFlickr.getPhotos(place, 10);
 				// System.out.println(res.size());
@@ -63,12 +63,9 @@ public class ResultAction extends Action {
 			}
 			// System.out.println(res.size()+"+++");
 
-			request.getSession().setAttribute("flickers", res);
+			request.getSession().setAttribute("flickrs", res);
 
-			// ArrayList<PhotoBean> flickers = (ArrayList<PhotoBean>) request
-			// .getSession().getAttribute("flickers");
-			// System.out.println(flickers.size() + "========");
-			// request.setAttribute("flickers", flickers);
+			
 			if (!form.isPresent()) {
 				return "result.jsp";
 			}
@@ -81,13 +78,13 @@ public class ResultAction extends Action {
 			// System.out.println(arr.size());
 			// request.setAttribute("photos", arr);
 
-			String[] flickerbox = request.getParameterValues("flickerbox");
-			System.out.println(flickerbox[0]);
-			for (String s : flickerbox) {
+			String[] flickrbox = request.getParameterValues("flickrbox");
+			System.out.println(flickrbox[0]);
+			for (String s : flickrbox) {
 				System.out.println(s);
 			}
 			/* problem of getting session again */
-			if (flickerbox.length == 0) {
+			if (flickrbox.length == 0) {
 				errors.add("Please choose at least 1 picture.");
 				return "result.jsp";
 			}
@@ -96,19 +93,19 @@ public class ResultAction extends Action {
 			/*
 			 * ArrayList<String> tweets = new ArrayList<String>();
 			 * tweets.add("tweet 1"); tweets.add("tweet 2"); ArrayList<String>
-			 * flickers = new ArrayList<String>(); flickers.add(
+			 * flickrs = new ArrayList<String>(); flickers.add(
 			 * "http://farm9.staticflickr.com/8160/7572579946_d3c5091482_b.jpg"
 			 * ); flickers.add(
 			 * "http://farm4.staticflickr.com/3217/2685676056_321559e444_b.jpg"
 			 * ); flickers.add(
 			 * "http://farm9.staticflickr.com/8393/8629407513_8c7479645f.jpg");
-			 * flickers
+			 * flickrs
 			 * .add("http://farm4.staticflickr.com/3659/5820179578_322e783f2a_b.jpg"
 			 * );
 			 */
 
 			// request.setAttribute("tweets", tweets);
-			// request.setAttribute("flickers", flickers);
+			// request.setAttribute("flickrs", flickrs);
 
 			PlanBean planBean = new PlanBean();
 			/* process of plan bean */
@@ -120,11 +117,11 @@ public class ResultAction extends Action {
 			 */
 			int plan_id = planDAO.getPlanByPlaceAndUserId(place, 1)
 					.getPlan_id();
-			for (int i = 0; i < flickerbox.length; i++) {
-				PlanFlickerBean pfb = new PlanFlickerBean();
+			for (int i = 0; i < flickrbox.length; i++) {
+				PlanFlickrBean pfb = new PlanFlickrBean();
 				pfb.setPlan_id(plan_id);
-				pfb.setUrl(flickerbox[i]);
-				planFlickerDAO.createAutoIncrement(pfb);
+				pfb.setUrl(flickrbox[i]);
+				planFlickrDAO.createAutoIncrement(pfb);
 			}
 			request.setAttribute("message",
 					"You have sucessfully shared your travel plan on Twitter");

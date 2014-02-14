@@ -22,6 +22,7 @@ public class Controller extends HttpServlet {
 		Action.add(new ViewPlanAction(model));
 		Action.add(new ResultAction(model));
 		Action.add(new PreviewAction(model));
+		Action.add(new MakeScheduleAction(model));
 		Action.add(new StatisticsAction(model));
 		Action.add(new SignInAction(model));
 		Action.add(new LogoutAction(model));

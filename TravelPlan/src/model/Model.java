@@ -18,7 +18,7 @@ public class Model {
 	private UserDAO uDAO;
 	private PlanDAO planDAO;
 	private StatisticsDAO statisticsDAO;
-	private PlanFlickerDAO planFlickerDAO;
+	private PlanFlickrDAO planFlickerDAO;
 
 	public Model(ServletConfig config) throws ServletException {
 		try {
@@ -29,7 +29,7 @@ public class Model {
 			uDAO = new UserDAO("user", pool);
 			statisticsDAO = new StatisticsDAO("statistics", pool);
 			planDAO = new PlanDAO("plan", pool);
-			planFlickerDAO = new PlanFlickerDAO("planFlicker", pool);
+			planFlickerDAO = new PlanFlickrDAO("planFlicker", pool);
 
 			int count = uDAO.getCount();
 			if (count == 0) {
@@ -58,7 +58,7 @@ public class Model {
 		return statisticsDAO;
 	}
 
-	public PlanFlickerDAO getPlanFlickerDAO() {
+	public PlanFlickrDAO getPlanFlickerDAO() {
 		return planFlickerDAO;
 	}
 }

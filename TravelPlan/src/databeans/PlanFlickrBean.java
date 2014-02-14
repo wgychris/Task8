@@ -2,9 +2,9 @@ package databeans;
 
 import org.genericdao.PrimaryKey;
 
-@PrimaryKey("planFlicker_id")
-public class PlanFlickerBean {
-	private int planFlicker_id;
+@PrimaryKey("planFlickr_id")
+public class PlanFlickrBean {
+	private int planFlickr_id;
 	private int plan_id;
 	private String url;
 
@@ -24,11 +24,11 @@ public class PlanFlickerBean {
 		this.url = url;
 	}
 
-	public int getPlanFlicker_id() {
-		return planFlicker_id;
+	public int getPlanFlickr_id() {
+		return planFlickr_id;
 	}
 
-	public void setPlanFlicker_id(int planFlicker_id) {
-		this.planFlicker_id = planFlicker_id;
+	public void setPlanFlickr_id(int planFlickr_id) {
+		this.planFlickr_id = planFlickr_id;
 	}
 }

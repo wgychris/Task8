@@ -1,12 +1,15 @@
 package databeans;
 
+import java.util.Date;
+
 import org.genericdao.PrimaryKey;
 
 @PrimaryKey("plan_id")
 public class PlanBean {
 	private int plan_id;
 	private int user_id;
-	private String date;
+	private Date dateFrom;
+	private Date dateTo;
 	private String place;
 
 	public int getPlan_id() {
@@ -25,19 +28,27 @@ public class PlanBean {
 		this.user_id = user_id;
 	}
 
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
 	public String getPlace() {
 		return place;
 	}
 
 	public void setPlace(String place) {
 		this.place = place;
+	}
+
+	public Date getDateFrom() {
+		return dateFrom;
+	}
+
+	public void setDateFrom(Date dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public Date getDateTo() {
+		return dateTo;
+	}
+
+	public void setDateTo(Date dateTo) {
+		this.dateTo = dateTo;
 	}
 }

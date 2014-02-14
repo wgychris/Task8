@@ -57,7 +57,7 @@ public class SearchAction extends Action {
 			} catch (XMLStreamException e) {
 				e.printStackTrace();
 			}
-			request.getSession().setAttribute("flickers", res);
+			request.getSession().setAttribute("flickrs", res);
 			// System.out.println(res.size()+"+++");*/
 			request.getSession().setAttribute("place", form.getPlace());
 			

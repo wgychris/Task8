@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="template-top.jsp" />
 
 <div class="container">
@@ -7,35 +8,21 @@
 			<div class="hero-unit">
 				<h2 class="text-center">Travel Plan for Pittsburgh</h2>
 				<hr>
+				<jsp:include page="error-list.jsp" />
 				<div class="row-fluid">
-					<div class="span5">
+					<div class="span6">
 						<ul class="thumbnails">
-							<div class="row-fluid">
-								<li class="span12"><a
-									href="http://farm9.staticflickr.com/8160/7572579946_d3c5091482_b.jpg"
-									class="thumbnail"> <img
-										src="http://farm9.staticflickr.com/8160/7572579946_d3c5091482_b.jpg">
-								</a></li>
-							</div>
-							<div class="row-fluid">
-								<li class="span12"><a
-									href="http://farm4.staticflickr.com/3217/2685676056_321559e444_b.jpg"
-									class="thumbnail"> <img
-										src="http://farm4.staticflickr.com/3217/2685676056_321559e444_b.jpg">
-								</a></li>
-							</div>
-							<c:forEach items="${flickers}" var="flickers">
-								<div class="row-fluid">
-									<li class="span12"><a href="${flickers}" class="thumbnail">
-											<img src="${flickers}">
+							<c:forEach items="${pfBeans}" var="pfBean">
+								<div class="row-fuild">
+									<li class="span12"><a href="${pfBean.url}"
+										class="thumbnail"> <img src="${pfBean.url}">
 									</a></li>
-								</div>
 							</c:forEach>
 						</ul>
 					</div>
 					<div class="span1"></div>
 
-					<div class="span6">
+					<div class="span5">
 						<ul class="thumbnails">
 							<div class="row-fluid">
 								<li class="span12"><p class="text-left">tweet 1</p></li>
@@ -53,8 +40,7 @@
 				</div>
 				<hr>
 				<p align="center">
-					<a class="btn btn-default" href="#">&laquo; Back</a> <a
-						class="btn btn-primary" href="#">Share plan &raquo;</a>
+					<a class="btn btn-default" href="viewPlan.do">&laquo; Back</a>
 				</p>
 			</div>
 		</div>

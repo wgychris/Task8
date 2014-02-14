@@ -63,6 +63,7 @@ body {
 									<li class="pull-right"><a href="search.do">Make a Plan</a></li>
 									<li class="pull-right"><a href="viewPlan.do">View My
 											Plan</a></li>
+									<li class="pull-right"><a href="makeSchedule.do">Make schedule</a></li>
 									<li class="pull-right"><a href="logout.do">Log out</a></li>
 								</ul></li>
 						</ul>

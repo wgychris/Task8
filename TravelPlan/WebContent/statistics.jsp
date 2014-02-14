@@ -1,36 +1,36 @@
 <jsp:include page="template-top.jsp" />
+<jsp:include page="error-list.jsp" />
+<html>
+<head>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+			['Month',   'Pittsburgh', 'Beijing', 'Shanghai', 'New York', 'Chicago'],
+			['2013/05',    165,      938,         522,             998,           450],
+			['2013/06',    135,      1120,        599,             1268,          288],
+			['2013/07',    157,      1167,        587,             807,           397],
+			['2013/08',    139,      1110,        615,             968,           215],
+			['2013/09',    136,      691,         629,             1026,          366]
+			]);
 
-	<div class="container">
 
-		<div class="row-fluid show-grid">
-			<div class="span12" align="center">
-				<div class="hero-unit" align="center">
-				<jsp:include page="error-list.jsp" />
-					<h2>Statistics</h2>
-					<hr>
-					<table align="center" class="table table-hover">
-						<thead>
-							<th>Plan name</th>
-							<th>Created date</th>
-							<th>Popularity</th>
-						</thead>
-						<tr>
-							<td><a herf="#">Pittsburgh</a></td>
-							<td>02/09/2014</td>
-							<td><a herf="#">555</a></td>
-						</tr>
-						<tr>
-							<td><a herf="#">Beijing</a></td>
-							<td>02/10/2014</td>
-							<td><a herf="#">555</a></td>
-						</tr>
-					</table>
-					<hr>
-					<p>
-						<a class="btn btn-default" href="search.do">&laquo; Back</a>
-					</p>
-				</div>
-			</div>
-		</div>
+        var options = {
+          title: 'Popular Places',
+          hAxis: {title: 'Month',  titleTextStyle: {color: '#333'}, baselineColor: {color: '#333'} },
+          vAxis: {title: 'Popularity', minValue: 0, baselineColor:{color: '#333'}}
+          
+        };
 
-		<jsp:include page="template-bottom.jsp" />
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+</head>
+<body>
+	<div id="chart_div" style="width: 900px; height: 500px;"></div>
+</body>
+</html>
+<jsp:include page="template-bottom.jsp" />

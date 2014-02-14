@@ -54,6 +54,17 @@ public class PlanDAO extends GenericDAO<PlanBean> {
 			return null;
 
 	}
+	
+	public PlanBean getPlanByPlanId(int plan_id) throws RollbackException {
+		PlanBean[] planArray = match(MatchArg.equals("plan_id", plan_id));
+		if (planArray != null && planArray.length > 0)
+			return planArray[0];
+		else
+			return null;
+
+	}
+	
+	
 
 	public PlanBean getPlanByPlaceAndUserId(String place, int user_id)
 			throws RollbackException {
