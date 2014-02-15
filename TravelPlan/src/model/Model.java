@@ -19,6 +19,7 @@ public class Model {
 	private PlanDAO planDAO;
 	private StatisticsDAO statisticsDAO;
 	private PlanFlickrDAO planFlickerDAO;
+	//private GetTweetsDAO getTweetsDAO;
 
 	public Model(ServletConfig config) throws ServletException {
 		try {

@@ -41,53 +41,46 @@
 						<div class="hero-unit">
 							<h4 class="text-center">Choose Tweets</h4>
 							<hr>
+
+
 							<div class="row-fluid">
-								<ul>
-									<div class="row-fuild">
-										<li class="span12">
-											<p>
-												<input type="checkbox" name="tweets"> tweet 1
-											</p>
-										</li>
-									</div>
-									<div class="row-fuild">
-										<li class="span12">
-											<p>
-												<input type="checkbox" name="tweets"> tweet 1
-											</p>
-										</li>
-									</div>
-								</ul>
-								<table align="center">
-									<c:forEach items="${tweets}" var="tweets">
-										<tr align="center">
-											<td><p>${tweets}</p>
-												<p>
-													<input type="checkbox" name="tweets">
-												</p></td>
-										</tr>
-									</c:forEach>
-								</table>
+								<c:if test="${empty tweets}">
+									<p>No result found. Please try another key word.</p>
+								</c:if>
+								<c:if test="${!empty tweets}">
+									<ul class="thumbnails">
+										<c:forEach items="${tweets}" var="tweet">
+											<div class="row-fuild">
+												<li class="span12"><div class="thumbnail">
+														${tweet.text}
+														<p>
+															<input type="checkbox" name="tweetBox"
+																value="${flickr.url}">
+														</p>
+													</div></li>
+										</c:forEach>
+									</ul>
+								</c:if>
 							</div>
 						</div>
 					</div>
 				</div>
-			<%-- 	<%if(request.getSession().getAttribute("user")!=null){ %>
+		</div>
+		<%-- 	<%if(request.getSession().getAttribute("user")!=null){ %>
 				<div align="center">
 				<a href="#myModal" role="button" class="btn" data-toggle="modal">login
 					first</a>
 					</div>
 				<%}else{%>
  --%>
-				<div align="center">
-					<button type="submit" class="btn btn-primary">Share
-						&raquo;</button>
-				</div>
-				<%-- <%} %> --%>
-			</form>
-		</div> 
-		 <!-- Modal -->
-		<!-- <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog"
+		<div align="center">
+			<button type="submit" class="btn btn-primary">Share &raquo;</button>
+		</div>
+		<%-- <%} %> --%>
+		</form>
+	</div>
+	<!-- Modal -->
+	<!-- <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
@@ -104,4 +97,4 @@
 		</div>  -->
 
 
-				<jsp:include page="template-bottom.jsp" />
+	<jsp:include page="template-bottom.jsp" />
