@@ -94,7 +94,7 @@
 						</div>
 					</div>
 					</div>
-					<div class="span4">
+					<div class="span3">
 						<div class="hero-unit">
 							<h4 class="text-center">Choose Tweets</h4>
 							<hr>
@@ -109,7 +109,7 @@
 										<c:forEach items="${tweets}" var="tweet">
 											<div class="row-fuild">
 												<li class="span12"><div class="thumbnail">
-														${tweet.text}
+														<h6>${tweet.text}</h6>
 														<p>
 															<input type="checkbox" name="tweetbox"
 															value="${tweet.text}"
