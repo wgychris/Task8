@@ -31,19 +31,11 @@
 										<c:forEach items="${ptBeans}" var="ptBean">
 											<div class="row-fuild">
 												<li class="span12"><div class="thumbnail">
-														<p class="text-left">${ptBean.text}</p>
+														<p class="text-left">${ptBean.tweet}</p>
 													</div></li>
 										</c:forEach>
 									</ul>
 								</c:if>
-
-
-
-								<li class="span12"><p class="text-left">tweet 1</p></li>
-							</div>
-							<div class="row-fluid">
-								<li class="span12"><p class="text-left">tweet 2</p></li>
-							</div>
 						</ul>
 					</div>
 				</div>
