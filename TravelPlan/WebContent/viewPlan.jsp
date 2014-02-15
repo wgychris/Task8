@@ -30,10 +30,8 @@
 							<tr>
 								<td><a herf="#">${plan.place}</a></td>
 								<c:if test="${!empty plan.dateFrom}">
-									<td><fmt:formatDate value="${plan.dateFrom}"
-											type="date" /> - <fmt:formatDate value="${plan.dateTo}"
-											type="date" />
-									</td>
+									<td><fmt:formatDate value="${plan.dateFrom}" type="date" />
+										- <fmt:formatDate value="${plan.dateTo}" type="date" /></td>
 								</c:if>
 								<c:if test="${empty plan.dateFrom}">
 									<td>No schedule yet</td>
@@ -93,6 +91,15 @@
 				<hr>
 				<p>
 					<a class="btn btn-default" href="search.do">&laquo; Back</a>
+				<div> <!--Twitter Share Button  -->
+				
+					<a href="https://twitter.com/share" class="twitter-share-button"
+						data-lang="en" data-via="TeamAllience"
+						data-url="http://127.0.0.1:8080/TravelPlan/viewPlan.do?userid=${user.user_id}"  data-hashtags="task8"
+						data-text="MyTravelPlan" data-size="large">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+				</div>
 				</p>
 			</div>
 		</div>

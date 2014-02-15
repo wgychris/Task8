@@ -11,18 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import org.genericdao.RollbackException;
 
 import databeans.PlanFlickrBean;
+import databeans.PlanTweetBean;
 import model.Model;
 import model.PlanFlickrDAO;
+import model.PlanTweetDAO;
 
 import org.genericdao.*;
 
 public class PreviewAction extends Action {
 
 	private PlanFlickrDAO planFlickrDAO;
+	private PlanTweetDAO planTweetDAO;
 
 	// ini DAOs
 	public PreviewAction(Model model) {
 		planFlickrDAO = model.getPlanFlickerDAO();
+		planTweetDAO = model.getPlanTweetDAO();
 	}
 
 	public String getName() {
@@ -44,6 +48,8 @@ public class PreviewAction extends Action {
 			PlanFlickrBean[] pfBeans = planFlickrDAO
 					.getPlanFlikcerByPlanId(plan_id);
 			request.setAttribute("pfBeans", pfBeans);
+			PlanTweetBean[] ptBeans = planTweetDAO.getPlanTweetByPlanId(plan_id);
+			request.setAttribute("ptBeans", ptBeans);
 
 			Transaction.commit();
 			return "preview.jsp";

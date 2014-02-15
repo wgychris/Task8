@@ -19,6 +19,8 @@ public class Model {
 	private PlanDAO planDAO;
 	private StatisticsDAO statisticsDAO;
 	private PlanFlickrDAO planFlickerDAO;
+	private PlanTweetDAO planTweetDAO;
+	//private GetTweetsDAO getTweetsDAO;
 
 	public Model(ServletConfig config) throws ServletException {
 		try {
@@ -30,7 +32,7 @@ public class Model {
 			statisticsDAO = new StatisticsDAO("statistics", pool);
 			planDAO = new PlanDAO("plan", pool);
 			planFlickerDAO = new PlanFlickrDAO("planFlicker", pool);
-
+			planTweetDAO = new PlanTweetDAO("planTweet", pool);
 			int count = uDAO.getCount();
 			if (count == 0) {
 				UserBean userBean = new UserBean();
@@ -45,6 +47,11 @@ public class Model {
 			e.printStackTrace();
 		}
 	}
+
+	public PlanTweetDAO getPlanTweetDAO() {
+		return planTweetDAO;
+	}
+
 
 	public UserDAO getUserDAO() {
 		return uDAO;
