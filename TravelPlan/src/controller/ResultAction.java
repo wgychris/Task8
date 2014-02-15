@@ -49,6 +49,10 @@ public class ResultAction extends Action {
 
 			UserBean user = (UserBean) request.getSession()
 					.getAttribute("user");
+			int user_id = user.getUser_id();
+			
+			System.out.println("user is " + user_id);
+			
 			if (user == null) {
 				System.out.println("no user");
 			}
@@ -110,12 +114,12 @@ public class ResultAction extends Action {
 			PlanBean planBean = new PlanBean();
 			/* process of plan bean */
 			planBean.setPlace(place);
-			planBean.setUser_id(1);
+			planBean.setUser_id(user_id);
 			planDAO.createAutoIncrement(planBean);
 			/*
 			 * assume no duplicate place for the same user
 			 */
-			int plan_id = planDAO.getPlanByPlaceAndUserId(place, 1)
+			int plan_id = planDAO.getPlanByPlaceAndUserId(place, user_id)
 					.getPlan_id();
 			for (int i = 0; i < flickrbox.length; i++) {
 				PlanFlickrBean pfb = new PlanFlickrBean();

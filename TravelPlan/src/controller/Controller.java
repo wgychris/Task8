@@ -55,14 +55,14 @@ public class Controller extends HttpServlet {
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		String action = getActionName(servletPath);
 
-/*
-		if (userBean == null && !action.equals("search.do") && !action.equals("result.do")
+
+		if (userBean == null && !action.equals("search.do") && !action.equals("viewPlan.do")
 				&& !action.equals("signup.do") && !action.equals("signin.do")) {
 			return Action.perform("signin.do", request);
 		} else {
 			return Action.perform(action, request);
-		}*/
-		return Action.perform(action, request);//for test
+		}
+		//return Action.perform(action, request);//for test
 	}
 
 	/*
@@ -79,6 +79,11 @@ public class Controller extends HttpServlet {
 		}
 
 		if (nextPage.endsWith(".do")) {
+			response.sendRedirect(nextPage);
+			return;
+		}
+		
+		if (nextPage.contains("viewPlan.do?userid=")) {
 			response.sendRedirect(nextPage);
 			return;
 		}
