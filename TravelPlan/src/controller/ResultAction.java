@@ -14,9 +14,11 @@ import org.genericdao.RollbackException;
 import databeans.PhotoBean;
 import databeans.PlanBean;
 import databeans.PlanFlickrBean;
+import databeans.TweetBean;
 import databeans.UserBean;
 import formbeans.ResultForm;
 import model.GetFlickr;
+import model.GetTweets;
 import model.Model;
 import model.PlanDAO;
 import model.PlanFlickrDAO;
@@ -63,8 +65,12 @@ public class ResultAction extends Action {
 			}
 			// System.out.println(res.size()+"+++");
 
+			
+				
 			request.getSession().setAttribute("flickrs", res);
-
+			TweetBean[] tweetBeanArray  = GetTweets.performGetTweets(place); // ???Request
+			request.getSession().setAttribute("tweets", tweetBeanArray);
+			System.out.print("tweets string "+ tweetBeanArray.toString());
 			
 			if (!form.isPresent()) {
 				return "result.jsp";
