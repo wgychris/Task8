@@ -14,6 +14,7 @@ import org.genericdao.RollbackException;
 import databeans.PhotoBean;
 import databeans.PlanBean;
 import databeans.PlanFlickrBean;
+import databeans.PlanTweetBean;
 import databeans.TweetBean;
 import databeans.UserBean;
 import formbeans.ResultForm;
@@ -22,6 +23,7 @@ import model.GetTweets;
 import model.Model;
 import model.PlanDAO;
 import model.PlanFlickrDAO;
+import model.PlanTweetDAO;
 
 import org.genericdao.*;
 import org.mybeans.form.FormBeanFactory;
@@ -31,11 +33,13 @@ public class ResultAction extends Action {
 			.getInstance(ResultForm.class);
 	private PlanDAO planDAO;
 	private PlanFlickrDAO planFlickrDAO;
+	private PlanTweetDAO planTweetDAO;
 
 	// ini DAOs
 	public ResultAction(Model model) {
 		planDAO = model.getPlanDAO();
 		planFlickrDAO = model.getPlanFlickerDAO();
+		planTweetDAO = model.getPlanTweetDAO();
 	}
 
 	public String getName() {
@@ -93,6 +97,9 @@ public class ResultAction extends Action {
 			for (String s : flickrbox) {
 				System.out.println(s);
 			}
+			
+			String[] tweetbox = request.getParameterValues("tweetbox");
+			
 			/* problem of getting session again */
 			if (flickrbox.length == 0) {
 				errors.add("Please choose at least 1 picture.");
@@ -100,23 +107,7 @@ public class ResultAction extends Action {
 			}
 
 			Transaction.begin();
-			/*
-			 * ArrayList<String> tweets = new ArrayList<String>();
-			 * tweets.add("tweet 1"); tweets.add("tweet 2"); ArrayList<String>
-			 * flickrs = new ArrayList<String>(); flickers.add(
-			 * "http://farm9.staticflickr.com/8160/7572579946_d3c5091482_b.jpg"
-			 * ); flickers.add(
-			 * "http://farm4.staticflickr.com/3217/2685676056_321559e444_b.jpg"
-			 * ); flickers.add(
-			 * "http://farm9.staticflickr.com/8393/8629407513_8c7479645f.jpg");
-			 * flickrs
-			 * .add("http://farm4.staticflickr.com/3659/5820179578_322e783f2a_b.jpg"
-			 * );
-			 */
-
-			// request.setAttribute("tweets", tweets);
-			// request.setAttribute("flickrs", flickrs);
-
+			
 			PlanBean planBean = new PlanBean();
 			/* process of plan bean */
 			planBean.setPlace(place);
@@ -132,6 +123,13 @@ public class ResultAction extends Action {
 				pfb.setPlan_id(plan_id);
 				pfb.setUrl(flickrbox[i]);
 				planFlickrDAO.createAutoIncrement(pfb);
+			}
+			
+			for (int i = 0; i < tweetbox.length; i++) {
+				PlanTweetBean ptb = new PlanTweetBean();
+				ptb.setPlan_id(plan_id);
+				ptb.setTweet(tweetbox[i]);
+				planTweetDAO.createAutoIncrement(ptb);
 			}
 			request.setAttribute("message",
 					"You have sucessfully shared your travel plan on Twitter");

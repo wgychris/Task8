@@ -54,8 +54,9 @@
 												<li class="span12"><div class="thumbnail">
 														${tweet.text}
 														<p>
-															<input type="checkbox" name="tweetBox"
-																value="${flickr.url}">
+															<input type="checkbox" name="tweetbox"
+															value="${tweet.text}"
+															>
 														</p>
 													</div></li>
 										</c:forEach>
