@@ -24,14 +24,18 @@
 
 					<div class="span5">
 						<ul class="thumbnails">
+							<div class="row-fluid">
 
-							<c:if test="${!empty ptBeans}">
-								<ul class="thumbnails">
-									<c:forEach items="${ptBeans}" var="ptBean">
-										${ptBean.tweet}
-									</c:forEach>
-								</ul>
-							</c:if>
+								<c:if test="${!empty ptBeans}">
+									<ul class="thumbnails">
+										<c:forEach items="${ptBeans}" var="ptBean">
+											<div class="row-fuild">
+												<li class="span12"><div class="thumbnail">
+														<p class="text-left">${ptBean.tweet}</p>
+													</div></li>
+										</c:forEach>
+									</ul>
+								</c:if>
 						</ul>
 					</div>
 				</div>
