@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 header, section, footer, hgroup{
 	display:block;
 }
@@ -69,7 +67,6 @@ a:hover, a:active{
 
 /* wrapper css */
 #wrapper{
-	margin-top:70px;
 	width:100%;
 }
 #wrapper hgroup{
@@ -376,6 +373,5 @@ a:hover, a:active{
 	#backlinks a{
 		display:inline-block;
 		padding-right:20px;
->>>>>>> branch 'master' of git@github.com:wgychris/Task8.git
 	}
 }
