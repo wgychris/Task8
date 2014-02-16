@@ -15,11 +15,11 @@
 				<h2>Map</h2>
 				<hr>
 				<%
-					mapData[] cityArray = new mapData[1];
+					mapData[] cityArray = new mapData[3];
 					cityArray[0] = new mapData(37.4232, -122.1697, "work");
 					request.setAttribute("cityArray", cityArray);
-					/* cityArray[1]=new mapData(37.6000,-122.2000,"university");
-					cityArray[2]=new mapData(37.6153,-122.3900,"Airport"); */
+					cityArray[1] = new mapData(37.6000, -122.2000, "university");
+					cityArray[2] = new mapData(37.6153, -122.3900, "Airport");
 				%>
 				<%-- <c:if test="${empty cityArray}">
 					<p>No statistics made yet.</p>
@@ -33,7 +33,7 @@
 					google.setOnLoadCallback(drawMap);
 					function drawMap() {
 
-						var data = new google.visualization.DataTable();
+					/* 	var data = new google.visualization.DataTable();
 
 						data.addColumn({
 							type : 'number',
@@ -44,20 +44,20 @@
 							id : 'Lon'
 						});
 						data.addColumn({
-							type : 'date',
+							type : 'string',
 							id : 'Description'
 						});
 
 						<c:forEach items="${cityArray}" var="city">
-						data.addRow([ 37.6000, -122.1697, 'work' ]);
+						data.addRow([ ${city.lat}, ${city.lon}, 'work' ]);
 						</c:forEach>
-
-						/* 	var data = google.visualization.arrayToDataTable([
+ */
+						var data = google.visualization.arrayToDataTable([
 										[ 'Lat', 'Lon', 'Name' ]
 										<c:forEach items="${cityArray}" var="city"> 
-										,[ 37.6000,-122.1697, 'work' ]
+										,[ ${city.lat}, ${city.lon}, '${city.des}']
 										</c:forEach>
-										]); */
+										]);
 
 						var map = new google.visualization.Map(document
 								.getElementById('map_div'));
