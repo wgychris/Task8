@@ -83,7 +83,8 @@
 						}
 					</script>
 
-					<div id="example2.2" style="width: 900px; height: 180px;"></div>
+					<div id="example2.2"
+						style="width: 900px; height: ${100*scheduleSize}px;"></div>
 				</c:if>
 
 

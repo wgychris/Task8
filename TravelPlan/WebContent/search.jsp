@@ -1,6 +1,49 @@
 <jsp:include page="template-top.jsp" />
 
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 
+<script>
+function initialize() {
+
+  var input = /** @type {HTMLInputElement} */(
+      document.getElementById('searchPlace'));
+
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
+
+  var infowindow = new google.maps.InfoWindow();
+  var marker = new google.maps.Marker({
+    map: map
+  });
+
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    infowindow.close();
+    marker.setVisible(false);
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+      return;
+    }
+
+    // If the place has a geometry, then present it on a map.
+   
+
+    var address = '';
+    if (place.address_components) {
+      address = [
+        (place.address_components[0] && place.address_components[0].short_name || ''),
+        (place.address_components[1] && place.address_components[1].short_name || ''),
+        (place.address_components[2] && place.address_components[2].short_name || '')
+      ].join(' ');
+    }
+
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' );
+  });
+
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
 <div class="container">
 
 	<!-- Main hero unit for a primary marketing message or call to action -->
@@ -14,7 +57,7 @@
 		<p>· share your own travel plan on twitter</p>
 		<p>
 		<form class="form-search" method="POST" action="search.do">
-			<input type="text" name="place" class="input-medium search-query"
+			<input id="searchPlace" type="text" name="place" class="input-medium search-query"
 				placeholder="street, city, country..">
 			<button type="submit" class="btn btn-primary">
 				<i class="icon-search icon-white"></i> Search

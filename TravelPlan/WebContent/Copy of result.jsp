@@ -30,21 +30,6 @@ body {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 }
-
-.tweet {
-	width: 100%;
-	padding: 15px;
-	background: #fff;
-	margin: 8px;
-	font-size: 12px;
-	box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
-	-moz-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
-	-webkit-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
-	-webkit-transition: top 1s ease, left 1s ease;
-	-moz-transition: top 1s ease, left 1s ease;
-	-o-transition: top 1s ease, left 1s ease;
-	-ms-transition: top 1s ease, left 1s ease;
-}
 </style>
 
 
@@ -85,16 +70,16 @@ body {
 			var winWidth = $(window).width();
 			var conWidth;
 			if (winWidth < 660) {
-				conWidth = winWidth / 3;
-				col = 2
+				conWidth = 330;
+				col = 1
 			} else if (winWidth < 880) {
-				conWidth = winWidth / 3;
-				col = 2
+				conWidth = 440;
+				col = 1
 			} else if (winWidth < 1100) {
-				conWidth = winWidth / 3;
+				conWidth = 1100 / 3;
 				col = 2;
 			} else {
-				conWidth = winWidth / 3;
+				conWidth = 1100 / 3;
 				col = 2;
 			}
 
@@ -182,7 +167,7 @@ body {
 				<jsp:include page="error-list.jsp" />
 				<h2 class="text-center">Choose pictures and tweets you like</h2>
 				<div class="span6">
-					<div class="hero-unit" align="center">
+					<div class="hero-unit1" align="center">
 						<section id="wrapper">
 							<h4>Choose Pictures</h4>
 							<hr>
@@ -216,25 +201,29 @@ body {
 							<p>No result found. Please try another key word.</p>
 						</c:if>
 						<c:if test="${!empty tweets}">
-							<div>
+							<ul class="thumbnails">
 								<c:forEach items="${tweets}" var="tweet">
-									<div class="tweet">
-										<div>${tweet.text}</div>
-										<div class="text-center">
-											<input type="checkbox" name="tweetbox" value="${tweet.text}">
-										</div>
+									<div>
+										<li><div class="grid">
+												${tweet.text}
+												<p>
+													<input type="checkbox" name="tweetbox"
+														value="${tweet.text}">
+												</p>
+											</div></li>
 									</div>
 								</c:forEach>
-							</div>
+							</ul>
 						</c:if>
 					</div>
 				</div>
-			</div>
 
+
+
+			</div>
 			<div align="center">
 				<button type="submit" class="btn btn-primary">Share &raquo;</button>
 			</div>
-
 		</form>
 
 		<br>

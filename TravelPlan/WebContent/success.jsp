@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="template-top.jsp" />
-<jsp:include page="error-list.jsp" />
 
 
 <div class="container">
@@ -8,6 +7,7 @@
 	<div class="row-fluid show-grid">
 		<div class="span12" align="center">
 			<div class="hero-unit" align="center">
+				<jsp:include page="error-list.jsp" />
 				<h3>${message}</h3>
 				<hr>
 				<p>

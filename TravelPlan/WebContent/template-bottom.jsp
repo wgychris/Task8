@@ -3,8 +3,7 @@
 <br>
 <footer>
 	<div class="container">
-		<p class="muted credit">Copyright &copy; 2014 Team
-			Alliance.</p>
+		<p class="muted credit">Copyright &copy; 2014 Team Alliance.</p>
 	</div>
 </footer>
 
@@ -27,6 +26,9 @@
 <script src="assets/js/bootstrap-collapse.js"></script>
 <script src="assets/js/bootstrap-carousel.js"></script>
 <script src="assets/js/bootstrap-typeahead.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/blocksit.js"></script>
 
 </body>
 </html>
