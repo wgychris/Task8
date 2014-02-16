@@ -40,6 +40,8 @@ public class StatisticsAction extends Action {
 			if(request.getParameter("place")!=null) {
 				String place = request.getParameter("place");
 				request.setAttribute("place", place);
+			} else {
+				request.setAttribute("place", "Your Choice");
 			}
 			
 			
