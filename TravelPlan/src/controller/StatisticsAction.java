@@ -37,6 +37,11 @@ public class StatisticsAction extends Action {
 					.getAttribute("user");
 
 			Transaction.begin();
+			if(request.getParameter("place")!=null) {
+				String place = request.getParameter("place");
+				request.setAttribute("place", place);
+			}
+			
 			
 
 			Transaction.commit();

@@ -50,7 +50,7 @@ public class PreviewAction extends Action {
 			request.setAttribute("pfBeans", pfBeans);
 			PlanTweetBean[] ptBeans = planTweetDAO.getPlanTweetByPlanId(plan_id);
 			request.setAttribute("ptBeans", ptBeans);
-
+			request.setAttribute("id", idString);
 			Transaction.commit();
 			return "preview.jsp";
 		} catch (RollbackException e) {
