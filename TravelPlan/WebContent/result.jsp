@@ -13,28 +13,32 @@
 <script>
 		$(document).ready(function() {
 		//vendor script
-		$('#picContainer').BlocksIt({
-			numOfCol : 3,
-			offsetX : 8,
-			offsetY : 8
+		
+		
+		$(window).load( function() {
+			$('#picContainer').BlocksIt({
+				numOfCol : 3,
+				offsetX : 8,
+				offsetY : 8
+			});
 		});
 		
-		var currentWidth = 1100;
+		var currentWidth = 1100/3;
 		$(window).resize(function() {
-			var winWidth = $(window).width();
+			var winWidth = $(window).width()/3;
 			var conWidth;
-			if(winWidth < 660) {
+			if(winWidth <220) {
 				conWidth = 440;
-				col = 2
-			} else if(winWidth < 880) {
+				col = 2;
+			} else if(winWidth <440) {
 				conWidth = 660;
-				col = 3
-			} else if(winWidth < 1100) {
+				col = 2;
+			} else if(winWidth < 660) {
 				conWidth = 880;
-				col = 4;
+				col = 3;
 			} else {
 				conWidth = 1100;
-				col = 5;
+				col = 4;
 			}
 			
 			if(conWidth != currentWidth) {
@@ -48,13 +52,7 @@
 			}
 		});
 		
-		$(window).load( function() {
-			$('#picContainer').BlocksIt({
-				numOfCol : 3,
-				offsetX : 8,
-				offsetY : 8
-			});
-		});
+		
 	});
 </script>
 
@@ -108,7 +106,7 @@
 									<ul class="thumbnails">
 										<c:forEach items="${tweets}" var="tweet">
 											<div class="row-fuild">
-												<li class="span12"><div class="thumbnail">
+												<li class="span12"><div class="grid">
 														<h6>${tweet.text}</h6>
 														<p>
 															<input type="checkbox" name="tweetbox"
