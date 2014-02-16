@@ -8,12 +8,19 @@
       google.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-			['Month',   'Pittsburgh', 'Beijing', 'Shanghai', 'New York', 'Chicago'],
-			['2013/05',    165,      938,         522,             998,           450],
-			['2013/06',    135,      1120,        599,             1268,          288],
-			['2013/07',    157,      1167,        587,             807,           397],
-			['2013/08',    139,      1110,        615,             968,           215],
-			['2013/09',    136,      691,         629,             1026,          366]
+			['Month',   'Pittsburgh', 'Beijing', 'Shanghai', 'New York', '${place}'],
+			['Jan.',    165,      938,         522,             998,           450],
+			['Feb.',    135,      1120,        599,             1268,          288],
+			['Mar.',    157,      1167,        587,             807,           397],
+			['Apr.',    139,      1110,        615,             968,           215],
+			['May',    136,      691,         629,             1026,          366],
+			['June',    165,      938,         522,             998,           450],
+			['July',    135,      1120,        599,             1268,          288],
+			['Aug.',    157,      1167,        587,             807,           397],
+			['Sept.',    139,      1110,        615,             968,           215],
+			['Oct.',    136,      691,         629,             1026,          366],
+			['Nov.',    165,      938,         522,             998,           450],
+			['Dec.',    135,      1120,        599,             1268,          288],
 			]);
 
 
@@ -30,7 +37,16 @@
     </script>
 </head>
 <body>
-	<div id="chart_div" style="width: 900px; height: 500px;"></div>
+	<div>
+		<form class="form-search" method="GET" action="statistics.do">
+			<input type="text" name="place" class="input-medium search-query"
+				placeholder="street, city, country..">
+			<button type="submit" class="btn btn-primary">
+				<i class="icon-search icon-white"></i> Search
+			</button>
+		</form>
+	</div>
+	<div id="chart_div" style="width: 1000px; height: 500px;"></div>
 </body>
 </html>
 <jsp:include page="template-bottom.jsp" />

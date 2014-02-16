@@ -56,7 +56,7 @@ public class Controller extends HttpServlet {
 		String action = getActionName(servletPath);
 
 
-		if (userBean == null && !action.equals("search.do") && !action.equals("viewPlan.do")
+		if (userBean == null && !action.equals("search.do") && !action.equals("preview.do")
 				&& !action.equals("signup.do") && !action.equals("signin.do")) {
 			return Action.perform("signin.do", request);
 		} else {

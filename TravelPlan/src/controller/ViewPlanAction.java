@@ -54,6 +54,9 @@ public class ViewPlanAction extends Action {
 
 			Transaction.begin();
 			PlanBean[] planBeans = planDAO.getPlanByUserId(user_id);
+			if(planBeans==null){
+				return "viewPlan.jsp";
+			}else{
 			ArrayList<ScheduleData> sDatas = new ArrayList<ScheduleData>();
 			for (int i = 0; i < planBeans.length; i++) {
 				if (planBeans[i].getDateFrom() != null) {
@@ -75,11 +78,12 @@ public class ViewPlanAction extends Action {
 			request.setAttribute("scheduleSize", sDatas.size());
 			Transaction.commit();
 			return "viewPlan.jsp";
+			}
 		} catch (RollbackException e) {
 			errors.add(e.toString());
 			return "viewPlan.jsp";
 		} catch (Exception e) {
-			System.out.print("in exception" + e.getMessage());
+			System.out.print("in exception: " + e.getMessage());
 			errors.add(e.getMessage());
 			return "viewPlan.jsp";
 		} finally {
