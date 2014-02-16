@@ -16,13 +16,19 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class CloudMaker {
-
-	public static String getWordCloud (String[] args) {
+	//return url of pic
+	public static String getWordCloud (String[] keywords) {
 		try {
+			StringBuilder sb = new StringBuilder();
+			for (String s : keywords) {
+				sb.append(s);
+				sb.append(" ");
+			}
+			String words = sb.toString();
 			HttpResponse<JsonNode> request = Unirest.post("https://gatheringpoint-word-cloud-maker.p.mashape.com/index.php")
 					  .header("X-Mashape-Authorization", "X7BgaL6YVe953dH7vdUwK1PciBWYYDlX")
-					  .field("height", "300")
-					  .field("textblock", "beijing shenyang shenyang shenyang beijing newyork pittsburgh")
+					  .field("height", "500")
+					  .field("textblock", words)
 					  .field("width", "400")
 					  .asJson();
 			JsonNode node = request.getBody();
@@ -33,12 +39,12 @@ public class CloudMaker {
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				return "no key words";
+				return "http://";
 			}
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "no key words";
+			return "http://";
 		}
 	}
 	
