@@ -66,8 +66,8 @@ public class ResultAction extends Action {
 			String place = (String) request.getSession().getAttribute("place");
 			System.out.println("place " + place);
 			try {
-				res = GetFlickr.getPhotos(place, 10);
-				// System.out.println(res.size());
+				res = GetFlickr.getPhotos(place, 15);
+				//System.out.println(res.size());
 			} catch (XMLStreamException e) {
 				e.printStackTrace();
 			}

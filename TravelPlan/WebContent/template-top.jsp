@@ -10,13 +10,17 @@
 
 <!-- Le styles -->
 <link href="assets/css/bootstrap.css" rel="stylesheet">
+
 <style type="text/css">
 body {
 	padding-top: 60px;
 	padding-bottom: 40px;
 }
 </style>
+
 <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="assets/css/main.css" rel="stylesheet">
+
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -70,12 +74,12 @@ body {
 					</c:if>
 					<c:if test="${empty user}">
 						<ul class="nav pull-right">
-							<li><button class="btn">
-									<a href="signin.do">Sign in</a>
-								</button></li>
-							<li><button class="btn">
-									<a href="signup.do">Sign up</a>
-								</button></li>
+							<a href="signin.do"><button class="btn btn-small">
+									Sign in
+								</button></a>
+							<a href="signup.do"><button class="btn btn-small">
+									Sign up
+								</button></a>
 						</ul>
 					</c:if>
 				</div>
