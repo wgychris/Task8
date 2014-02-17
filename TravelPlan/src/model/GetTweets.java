@@ -1,7 +1,6 @@
 package model;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -34,10 +33,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
-import databeans.TweetBean;
+import databeans.*;
 
 /*
  * Processes the parameters from the form in login.jsp.
@@ -66,6 +64,7 @@ public class GetTweets {
 			this.lon = lon;
 		}
 	}
+
 
 	private static Coordiate[] fetchGeo(String endPointUrl, String bearerToken)
 			throws IOException {
@@ -151,6 +150,12 @@ public class GetTweets {
 				Coordiate[] coordArray = fetchGeo(queryUrlString, token);
 				System.out
 						.println("!!!!coordArray size is" + coordArray.length);
+				TweetGeoBean[] rs = new TweetGeoBean[coordArray.length];
+				for(int i = 0; i < rs.length; i++) {
+					rs[i].setLat(coordArray[i].lat);
+					rs[i].setLon(coordArray[i].lon);
+				}
+
 			}
 			return 0;
 		} catch (Exception e) {
@@ -161,14 +166,11 @@ public class GetTweets {
 	
 	public static TweetBean[] performGetTweets(String place) {
 		List<String> errors = new ArrayList<String>();
-		// request.setAttribute("errors", errors);
-
 		try {
 
 			if (errors.size() != 0) {
 				// return "c_login.jsp";
 			}
-			// System.out.println("search is \n" + place);
 			int count = 30;
 			if (place != null) {
 
@@ -183,18 +185,7 @@ public class GetTweets {
 				TweetBean[] tweetBeanArray =
 				 fetchTimelineTweet(queryUrlString,
 				 token);
-				/*
-				 * if (tweetBeanArray != null) {
-				 * System.out.println(tweetBeanArray.length);
-				 * 
-				 * for (int i = 0; i < tweetBeanArray.length; i++) { String
-				 * dateString = tweetBeanArray[i].getDateStr();
-				 * System.out.print("dateString is " + dateString + "\n"); Date
-				 * nextDate = getTwitterDate(dateString);
-				 * System.out.print(nextDate + "\n"); } return tweetBeanArray;
-				 * 
-				 * }
-				 */
+				getTweetGeo(place,"hotel");
 				return tweetBeanArray;// tweetBeanArray;
 			}
 			return null;
@@ -307,7 +298,6 @@ public class GetTweets {
 			TweetBean[] twArray = new TweetBean[resultArrayList.size()];
 			for (int i = 0; i < resultArrayList.size(); i++)
 				twArray[i] = resultArrayList.get(i);
-			// System.out.print(twArray.length + "\n");
 			return twArray;
 		} catch (MalformedURLException e) {
 			throw new IOException("Invalid endpoint URL specified.", e);
