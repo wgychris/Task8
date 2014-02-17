@@ -34,6 +34,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 import utils.GeoInfo;
+import utils.mapData;
+
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import databeans.*;
@@ -56,18 +58,7 @@ public class GetTweets {
 		return "getTweets.do";
 	}
 
-	public static class Coordinate {
-		public double lat;
-		public double lon;
-
-		public Coordinate(double lat, double lon) {
-			this.lat = lat;
-			this.lon = lon;
-		}
-	}
-
-
-	private static Coordinate[] fetchGeo(String endPointUrl, String bearerToken)
+	private static mapData[] fetchGeo(String endPointUrl, String bearerToken)
 			throws IOException {
 		HttpsURLConnection connection = null;
 
@@ -89,7 +80,7 @@ public class GetTweets {
 			JSONArray msg = (JSONArray) obj.get("statuses");
 			Iterator<JSONObject> iterator = msg.iterator();
 			// int i = 0;
-			ArrayList<Coordinate> resultArrayList = new ArrayList<Coordinate>();
+			ArrayList<mapData> resultArrayList = new ArrayList<mapData>();
 			System.out.print("come 1 \n");
 			while (iterator.hasNext()) {
 				JSONObject next = iterator.next();
@@ -106,7 +97,7 @@ public class GetTweets {
 					if (coordArray.size() == 2) {
 						Double lat = (Double) coordArray.get(0);
 						Double lon = (Double) coordArray.get(1);
-						Coordinate cor = new Coordinate(lat, lon);
+						mapData cor = new mapData(lat, lon);
 						resultArrayList.add(cor);
 					}
 				}
@@ -114,7 +105,7 @@ public class GetTweets {
 			}
 
 			System.out.print(resultArrayList.size() + "\n");
-			Coordinate[] cdArray = new Coordinate[resultArrayList.size()];
+			mapData[] cdArray = new mapData[resultArrayList.size()];
 			for (int i = 0; i < resultArrayList.size(); i++)
 				cdArray[i] = resultArrayList.get(i);
 			System.out.print(cdArray.length + "\n");
@@ -128,7 +119,7 @@ public class GetTweets {
 		}
 	}
 
-	public static Coordinate[] getTweetGeo(String place, String key) {
+	public static mapData[] getTweetGeo(String place, String key) {
 		List<String> errors = new ArrayList<String>();
 		//TweetGeoBean[] rs = new TweetGeoBean[0];
 		try {
@@ -149,14 +140,14 @@ public class GetTweets {
 						+ "&lang=en"
 						+ "&locations="
 						+ URLEncoder.encode(place);
-				Coordinate[] coordArray = fetchGeo(queryUrlString, token);
+				mapData[] coordArray = fetchGeo(queryUrlString, token);
 				System.out
 						.println("!!!!coordArray size is" + coordArray.length);
 				
-				for(int i = 0; i < coordArray.length; i++) {
-					System.out.print("\ndayindafa\n");
-					System.out.print(coordArray[i].lat);
-				}
+				//for(int i = 0; i < coordArray.length; i++) {
+					//System.out.print("\ndayindafa\n");
+					//System.out.print(coordArray[i].lat);
+				//}
 				return coordArray;
 
 			}

@@ -1,9 +1,7 @@
 package databeans;
 
-import java.io.Serializable;
 
-
-public class TweetBean implements Serializable{
+public class TweetBean{
 	private String text;
 	private long favourites_count;
 	private String tag;

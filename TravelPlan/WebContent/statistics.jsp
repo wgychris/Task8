@@ -1,40 +1,44 @@
 <jsp:include page="template-top.jsp" />
 <jsp:include page="error-list.jsp" />
+<%@page import="utils.mapData"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-			['Month',   'Pittsburgh', 'Beijing', 'Shanghai', 'New York', '${place}'],
-			['Jan.',    165,      938,         522,             998,           450],
-			['Feb.',    135,      1120,        599,             1268,          288],
-			['Mar.',    157,      1167,        587,             807,           397],
-			['Apr.',    139,      1110,        615,             968,           215],
-			['May',    136,      691,         629,             1026,          366],
-			['June',    165,      938,         522,             998,           450],
-			['July',    135,      1120,        599,             1268,          288],
-			['Aug.',    157,      1167,        587,             807,           397],
-			['Sept.',    139,      1110,        615,             968,           215],
-			['Oct.',    136,      691,         629,             1026,          366],
-			['Nov.',    165,      938,         522,             998,           450],
-			['Dec.',    135,      1120,        599,             1268,          288],
-			]);
+<%
+					mapData[] cityArray = new mapData[3];
+					//cityArray[0] = new mapData(37.4232, -122.1697, "work");
+					//request.setAttribute("cityArray", cityArray);
+					//cityArray[1] = new mapData(37.6000, -122.2000, "university");
+					//cityArray[2] = new mapData(37.6153, -122.3900, "Airport");
+				%>
+				<%-- <c:if test="${empty cityArray}">
+					<p>No statistics made yet.</p>
+				</c:if>
+				<c:if test="${!empty cityArray}"> --%>
+				<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+				<script type="text/javascript">
+					google.load("visualization", "1", {
+						packages : [ "map" ]
+					});
+					google.setOnLoadCallback(drawMap);
+					function drawMap() {
 
+			
+						var data = google.visualization.arrayToDataTable([
+										[ 'Lat', 'Lon', 'Name' ]
+										<c:forEach items="${cityArray}" var="city"> 
+										,[ ${city.lat}, ${city.lon}, '${city.des}']
+										</c:forEach>
+										]);
 
-        var options = {
-          title: 'Popular Places',
-          hAxis: {title: 'Month',  titleTextStyle: {color: '#333'}, baselineColor: {color: '#333'} },
-          vAxis: {title: 'Popularity', minValue: 0, baselineColor:{color: '#333'}}
-          
-        };
-
-        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
+						var map = new google.visualization.Map(document
+								.getElementById('map_div'));
+						map.draw(data, {
+							showTip : true
+						});
+					}
+				</script>
 </head>
 <body>
 	<div>
@@ -46,6 +50,7 @@
 			</button>
 		</form>
 	</div>
+	<div id="map_div" style="width: 600px; height: 500px"></div>
 	<div id="chart_div" style="width: 1000px; height: 500px;"></div>
 	<div>
 		<img border="0" src="${url }" >
