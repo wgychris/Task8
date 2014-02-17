@@ -138,20 +138,21 @@ public class GetTweets {
 
 				String token = requestBearerToken("https://api.twitter.com/oauth2/token");
 				double [] locations = GeoInfo.getGeoCode(place);
+				System.out.print("!@#$##@"+locations[0]+", "+locations[1]+"\n\n\n\n");
 				String queryUrlString = "https://api.twitter.com/1.1/search/tweets.json?q="
 						+ URLEncoder.encode(key)
 						+ "&count="
 						+ count
 						+ "&lang=en"
-						+ "goecode=" + locations[0] + "," + locations[1] + "," + "500mi";
+						+ "&goecode=" + locations[0] + "," + locations[1] + "," + "1000mi";
 				System.out.println("*******url is " + queryUrlString);
 				Coordinate[] coordArray = fetchGeo(queryUrlString, token);
 				System.out
 						.println("!!!!coordArray size is" + coordArray.length);
 				
 				for(int i = 0; i < coordArray.length; i++) {
-					System.out.print("\ndayindafa\n");
-					System.out.print(coordArray[i].lat);
+					//System.out.print("\ndayindafa\n");
+					System.out.print("lon, lat "+coordArray[i].lon+","+coordArray[i].lat+"\n");
 				}
 				return coordArray;
 
@@ -439,13 +440,13 @@ public class GetTweets {
 		}
 	}
 	
-//	public static void main(String[] args) {
-//		TweetBean[] tweetBeanArray = new GetTweets().performGetHashTags("pittsburgh" , "ktv");
-//		System.out.println(tweetBeanArray.length);
-//		for (TweetBean t : tweetBeanArray) {
-//			System.out.println(t.getTag());
-//		}
-//		new GetTweets().getTweetGeo("pittsburgh", "hotel");
-//	}
+	public static void main(String[] args) {
+		TweetBean[] tweetBeanArray = new GetTweets().performGetHashTags("pittsburgh" , "ktv");
+		System.out.println(tweetBeanArray.length);
+		for (TweetBean t : tweetBeanArray) {
+			System.out.println(t.getTag());
+		}
+		new GetTweets().getTweetGeo("pittsburgh", "hotel");
+	}
 
 }
