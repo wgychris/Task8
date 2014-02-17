@@ -40,19 +40,23 @@ public class ViewPlanAction extends Action {
 			// user from session;
 			UserBean user = (UserBean) request.getSession()
 					.getAttribute("user");
-			//if user is not log in, find out if the url gives params to indicate the userid
+			// if user is not log in, find out if the url gives params to
+			// indicate the userid
 			int user_id;
-			if(user == null) {
+			if (user == null) {
 				String userid = request.getParameter("userid");
-				 user_id = Integer.parseInt(userid);
+				user_id = Integer.parseInt(userid);
 			} else { // user is login
-				 user_id = user.getUser_id();
+				user_id = user.getUser_id();
 			}
 			// int user_id = user.getUser_id();
-//			int user_id = 1;
+			// int user_id = 1;
 
 			Transaction.begin();
 			PlanBean[] planBeans = planDAO.getPlanByUserId(user_id);
+			if(planBeans==null){
+				return "viewPlan.jsp";
+			}else{
 			ArrayList<ScheduleData> sDatas = new ArrayList<ScheduleData>();
 			for (int i = 0; i < planBeans.length; i++) {
 				if (planBeans[i].getDateFrom() != null) {
@@ -71,13 +75,15 @@ public class ViewPlanAction extends Action {
 			}
 			request.setAttribute("schedules", sDatas);
 			request.setAttribute("planArray", planBeans);
+			request.setAttribute("scheduleSize", sDatas.size());
 			Transaction.commit();
 			return "viewPlan.jsp";
+			}
 		} catch (RollbackException e) {
 			errors.add(e.toString());
 			return "viewPlan.jsp";
 		} catch (Exception e) {
-			System.out.print("in exception" + e.getMessage());
+			System.out.print("in exception: " + e.getMessage());
 			errors.add(e.getMessage());
 			return "viewPlan.jsp";
 		} finally {
