@@ -127,9 +127,9 @@ public class GetTweets {
 		}
 	}
 
-	public static TweetGeoBean[] getTweetGeo(String place, String key) {
+	public static Coordiate[] getTweetGeo(String place, String key) {
 		List<String> errors = new ArrayList<String>();
-		TweetGeoBean[] rs = new TweetGeoBean[0];
+		//TweetGeoBean[] rs = new TweetGeoBean[0];
 		try {
 
 			if (errors.size() != 0) {
@@ -151,17 +151,18 @@ public class GetTweets {
 				Coordiate[] coordArray = fetchGeo(queryUrlString, token);
 				System.out
 						.println("!!!!coordArray size is" + coordArray.length);
-			    rs = new TweetGeoBean[coordArray.length];
-				for(int i = 0; i < rs.length; i++) {
-					rs[i].setLat(coordArray[i].lat);
-					rs[i].setLon(coordArray[i].lon);
+				
+				for(int i = 0; i < coordArray.length; i++) {
+					System.out.print("\ndayindafa\n");
+					System.out.print(coordArray[i].lat);
 				}
+				return coordArray;
 
 			}
-			return rs;
+			return null;
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return rs;
+			return null;
 		}
 	}
 	
