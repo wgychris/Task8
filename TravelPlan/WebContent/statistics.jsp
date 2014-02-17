@@ -6,11 +6,16 @@
 <html>
 <head>
 <%
-					mapData[] cityArray = new mapData[3];
-					//cityArray[0] = new mapData(37.4232, -122.1697, "work");
-					//request.setAttribute("cityArray", cityArray);
-					//cityArray[1] = new mapData(37.6000, -122.2000, "university");
-					//cityArray[2] = new mapData(37.6153, -122.3900, "Airport");
+					mapData[] cityArray = (mapData[])request.getAttribute("maps");
+//mapData[] cityArray = new mapData[3];
+//cityArray[0] = new mapData(37.4232, -122.1697);
+//request.setAttribute("cityArray", cityArray);
+//cityArray[1] = new mapData(37.6000, -122.2000);
+//cityArray[2] = new mapData(37.6153, -122.3900);
+					//for(mapData m:cityArray){
+						//System.out.println(m.getLon());
+						//System.out.println(m.getLat());
+					//}
 				%>
 				<%-- <c:if test="${empty cityArray}">
 					<p>No statistics made yet.</p>
@@ -26,9 +31,9 @@
 
 			
 						var data = google.visualization.arrayToDataTable([
-										[ 'Lat', 'Lon', 'Name' ]
+										[ 'Lat', 'Lon' ]
 										<c:forEach items="${cityArray}" var="city"> 
-										,[ ${city.lat}, ${city.lon}, '${city.des}']
+										,[ ${city.lat}, ${city.lon}]
 										</c:forEach>
 										]);
 

@@ -18,6 +18,7 @@ import model.Model;
 import org.genericdao.*;
 
 import utils.CloudMaker;
+import utils.mapData;
 
 import org.json.JSONException;
 import org.json.simple.JSONObject;
@@ -62,6 +63,9 @@ public class StatisticsAction extends Action {
 				String words = sb.toString();
 //				String [] words = {"Peking", "Pittsburgh","NewYord","CMU","Nanjing"};
 				String url = CloudMaker.getWordCloud(words);
+				mapData[] maps=GetTweets.getTweetGeo(place,"hotel");
+				//System.out.println("length:"+maps.length);
+				request.setAttribute("maps", maps);
 				request.setAttribute("place", place);
 				request.setAttribute("url", url);
 			} else {

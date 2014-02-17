@@ -81,19 +81,15 @@ public class GetTweets {
 			Iterator<JSONObject> iterator = msg.iterator();
 			// int i = 0;
 			ArrayList<mapData> resultArrayList = new ArrayList<mapData>();
-			System.out.print("come 1 \n");
+			//System.out.print("come 1 \n");
 			while (iterator.hasNext()) {
 				JSONObject next = iterator.next();
 				//System.out.print("next" + next.toString() + "\n");
 				JSONObject geoJsonBig = (JSONObject) next.get("geo");
 				//System.out.print("?Null" + (geoJsonBig == null) + "\n");
 				if (geoJsonBig != null) {
-					//System.out.print("geoJsonBig" + geoJsonBig.toString()
-						//	+ "\n");
 					JSONArray coordArray = (JSONArray) geoJsonBig
 							.get("coordinates");
-					//System.out.print("coordArray is " + coordArray.toString()
-						//	+ "\n");
 					if (coordArray.size() == 2) {
 						Double lat = (Double) coordArray.get(0);
 						Double lon = (Double) coordArray.get(1);
@@ -104,11 +100,11 @@ public class GetTweets {
 
 			}
 
-			System.out.print(resultArrayList.size() + "\n");
+			System.out.print("resultArrayList length: "+resultArrayList.size() + "\n");
 			mapData[] cdArray = new mapData[resultArrayList.size()];
 			for (int i = 0; i < resultArrayList.size(); i++)
 				cdArray[i] = resultArrayList.get(i);
-			System.out.print(cdArray.length + "\n");
+			System.out.print("cdArray length: "+cdArray.length + "\n");
 			return cdArray;
 		} catch (MalformedURLException e) {
 			throw new IOException("Invalid endpoint URL specified.", e);
@@ -132,22 +128,19 @@ public class GetTweets {
 			if (place != null) {
 
 				String token = requestBearerToken("https://api.twitter.com/oauth2/token");
-
+				double [] locations = GeoInfo.getGeoCode(place);
 				String queryUrlString = "https://api.twitter.com/1.1/search/tweets.json?q="
 						+ URLEncoder.encode(key)
 						+ "&count="
 						+ count
-						+ "&lang=en"
-						+ "&locations="
-						+ URLEncoder.encode(place);
+						+ "&lang=en";
+						//+ "goecode=" + locations[0] + "," + locations[1] + "," + "500mi";
+				//System.out.println("*******url is " + queryUrlString);
 				mapData[] coordArray = fetchGeo(queryUrlString, token);
 				System.out
 						.println("!!!!coordArray size is" + coordArray.length);
 				
-				//for(int i = 0; i < coordArray.length; i++) {
-					//System.out.print("\ndayindafa\n");
-					//System.out.print(coordArray[i].lat);
-				//}
+				
 				return coordArray;
 
 			}
@@ -440,6 +433,7 @@ public class GetTweets {
 //		for (TweetBean t : tweetBeanArray) {
 //			System.out.println(t.getTag());
 //		}
+//		new GetTweets().getTweetGeo("pittsburgh", "hotel");
 //	}
 
 }
