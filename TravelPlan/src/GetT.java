@@ -1,6 +1,5 @@
-package model;
-
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -33,27 +32,27 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-import utils.GeoInfo;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
-import databeans.*;
+import databeans.TweetBean;
+import databeans.TweetGeoBean;
 
-/*
- * Processes the parameters from the form in login.jsp.
- * If successful, set the "user" session attribute to the
- * user's User bean and then redirects to view the originally
- * requested photo.  If there was no photo originally requested
- * to be viewed (as specified by the "redirect" hidden form
- * value), just redirect to manage.do to allow the user to manage
- * his photos.
- */
-public class GetTweets {
+public class GetT {
 
-	private static FormBeanFactory<SearchTweetsForm> formBeanFactory = FormBeanFactory
-			.getInstance(SearchTweetsForm.class);
+	/*
+	 * Processes the parameters from the form in login.jsp. If successful, set
+	 * the "user" session attribute to the user's User bean and then redirects
+	 * to view the originally requested photo. If there was no photo originally
+	 * requested to be viewed (as specified by the "redirect" hidden form
+	 * value), just redirect to manage.do to allow the user to manage his
+	 * photos.
+	 */
 
-	public String getName() {
-		return "getTweets.do";
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		GetT getT = new GetT();
+		getT.getTweetGeo("pittsburgh","restaurant");
+
 	}
 
 	public static class Coordiate {
@@ -65,7 +64,6 @@ public class GetTweets {
 			this.lon = lon;
 		}
 	}
-
 
 	private static Coordiate[] fetchGeo(String endPointUrl, String bearerToken)
 			throws IOException {
@@ -93,16 +91,16 @@ public class GetTweets {
 			System.out.print("come 1 \n");
 			while (iterator.hasNext()) {
 				JSONObject next = iterator.next();
-				//System.out.print("next" + next.toString() + "\n");
+				System.out.print("next" + next.toString() + "\n");
 				JSONObject geoJsonBig = (JSONObject) next.get("geo");
-				//System.out.print("?Null" + (geoJsonBig == null) + "\n");
+				System.out.print("?Null" + (geoJsonBig == null) + "\n");
 				if (geoJsonBig != null) {
-					//System.out.print("geoJsonBig" + geoJsonBig.toString()
-						//	+ "\n");
+					System.out.print("geoJsonBig" + geoJsonBig.toString()
+							+ "\n");
 					JSONArray coordArray = (JSONArray) geoJsonBig
 							.get("coordinates");
-					//System.out.print("coordArray is " + coordArray.toString()
-						//	+ "\n");
+					System.out.print("coordArray is " + coordArray.toString()
+							+ "\n");
 					if (coordArray.size() == 2) {
 						Double lat = (Double) coordArray.get(0);
 						Double lon = (Double) coordArray.get(1);
@@ -152,87 +150,18 @@ public class GetTweets {
 				Coordiate[] coordArray = fetchGeo(queryUrlString, token);
 				System.out
 						.println("!!!!coordArray size is" + coordArray.length);
-			    rs = new TweetGeoBean[coordArray.length];
-				for(int i = 0; i < rs.length; i++) {
+				for(Coordiate c: coordArray)
+					System.out.print(c.lat+","+c.lon+"\n");
+				rs = new TweetGeoBean[coordArray.length];
+				for(int i = 0; i < coordArray.length; i++) {
 					rs[i].setLat(coordArray[i].lat);
 					rs[i].setLon(coordArray[i].lon);
 				}
-
 			}
 			return rs;
 		} catch (Exception e) {
 			errors.add(e.getMessage());
 			return rs;
-		}
-	}
-	
-	public static TweetBean[] performGetTweets(String place) {
-		List<String> errors = new ArrayList<String>();
-		try {
-
-			if (errors.size() != 0) {
-				// return "c_login.jsp";
-			}
-			int count = 30;
-			if (place != null) {
-
-				String token = requestBearerToken("https://api.twitter.com/oauth2/token");
-
-				String queryUrlString = "https://api.twitter.com/1.1/search/tweets.json?q="
-						+ URLEncoder.encode(place)
-						+ "&count="
-						+ count
-						+ "&lang=en" + "&locations=" + URLEncoder.encode(place);
-				System.out.print("after geo");
-				TweetBean[] tweetBeanArray =
-				 fetchTimelineTweet(queryUrlString,
-				 token);
-				getTweetGeo(place,"hotel");
-				return tweetBeanArray;// tweetBeanArray;
-			}
-			return null;
-		} catch (Exception e) {
-			errors.add(e.getMessage());
-			return null;
-		}
-	}
-	
-	public static TweetBean[]  performGetHashTags(String place, String keyword) {
-		List<String> errors = new ArrayList<String>();
-
-		try {
-
-			if (errors.size() != 0) {
-				// return "c_login.jsp";
-			}
-			System.out.println("search is \n"
-					+place);
-			int count = 300;
-			if (place != null) {
-
-				double [] location = GeoInfo.getGeoCode(place);
-				
-				String token = requestBearerToken("https://api.twitter.com/oauth2/token");
-				
-				String queryUrlString = "https://api.twitter.com/1.1/search/tweets.json?q=" + keyword
-						+ "&count="+count+"&lang=en&geocode=" + location[0] + "," + location[1] + "," + "500mi";
-			
-				TweetBean[] tweetBeanArray = fetchTweetwithTags(queryUrlString,
-						token);
-				if (tweetBeanArray != null) {
-					//request.setAttribute("tweets", tweetBeanArray);
-					System.out.println("array length is " + tweetBeanArray.length);
-					return tweetBeanArray;
-					
-				}
-			}
-			// System.out.println("Tweet result is \n" + tweet+"]]]]");
-			//HttpSession session = request.getSession();
-
-			return null;
-		} catch (Exception e) {
-			errors.add(e.getMessage());
-			return null;
 		}
 	}
 
@@ -305,110 +234,6 @@ public class GetTweets {
 		}
 	}
 
-	private static TweetBean[] fetchTimelineTweet(String endPointUrl,
-			String bearerToken) throws IOException {
-		HttpsURLConnection connection = null;
-
-		try {
-			URL url = new URL(endPointUrl);
-			connection = (HttpsURLConnection) url.openConnection();
-			connection.setDoOutput(true);
-			connection.setDoInput(true);
-			connection.setRequestMethod("GET");
-			connection.setRequestProperty("Host", "api.twitter.com");
-			connection.setRequestProperty("User-Agent", "yusizApp");
-			connection.setRequestProperty("Authorization", "Bearer "
-					+ bearerToken);
-			connection.setUseCaches(false);
-
-			JSONObject obj = (JSONObject) JSONValue
-					.parse(readResponse(connection));
-
-			JSONArray msg = (JSONArray) obj.get("statuses");
-			Iterator<JSONObject> iterator = msg.iterator();
-			// int i = 0;
-			ArrayList<TweetBean> resultArrayList = new ArrayList<TweetBean>();
-			while (iterator.hasNext()) {
-				JSONObject next = iterator.next();
-				String text = (String) next.get("text");
-				TweetBean tBean = new TweetBean();
-				tBean.setText(text);
-				resultArrayList.add(tBean);
-			}
-			// System.out.print(resultArrayList.size() + "\n");
-			TweetBean[] twArray = new TweetBean[resultArrayList.size()];
-			for (int i = 0; i < resultArrayList.size(); i++)
-				twArray[i] = resultArrayList.get(i);
-			return twArray;
-		} catch (MalformedURLException e) {
-			throw new IOException("Invalid endpoint URL specified.", e);
-		} finally {
-			if (connection != null) {
-				connection.disconnect();
-			}
-		}
-	}
-	
-	private static TweetBean[] fetchTweetwithTags(String endPointUrl,
-			String bearerToken) throws IOException {
-		HttpsURLConnection connection = null;
-
-		try {
-			URL url = new URL(endPointUrl);
-			connection = (HttpsURLConnection) url.openConnection();
-			connection.setDoOutput(true);
-			connection.setDoInput(true);
-			connection.setRequestMethod("GET");
-			connection.setRequestProperty("Host", "api.twitter.com");
-			connection.setRequestProperty("User-Agent", "yusizApp");
-			connection.setRequestProperty("Authorization", "Bearer "
-					+ bearerToken);
-			connection.setUseCaches(false);
-			System.out.print("***********"+connection);
-			JSONObject obj = (JSONObject) JSONValue
-					.parse(readResponse(connection));
-
-			JSONArray msg = (JSONArray) obj.get("statuses");
-			Iterator<JSONObject> iterator = msg.iterator();
-			// int i = 0;
-			ArrayList<TweetBean> resultArrayList = new ArrayList<TweetBean>();
-			while (iterator.hasNext()) {
-				JSONObject next = iterator.next();
-//				System.out.println("next " + next.toString());
-				JSONObject entities = (JSONObject) next.get("entities");
-//				System.out.println("entites " + entities.toString());
-				JSONArray hashtags = (JSONArray) entities.get("hashtags");
-				if ( hashtags == null || hashtags.size() == 0 ) {
-					continue;
-				} else {
-					JSONObject tag = (JSONObject) hashtags.get(0);
-					String content = (String) tag.get("text");
-//					System.out.println(content );
-					TweetBean tBean = new TweetBean();
-					tBean.setTag(content);
-					resultArrayList.add(tBean);
-					
-				}
-				
-				
-			}
-			System.out.print(resultArrayList.size() + "\n");
-			TweetBean[] twArray = new TweetBean[resultArrayList.size()];
-			for (int i = 0; i < resultArrayList.size(); i++)
-				twArray[i] = resultArrayList.get(i);
-			// return (tweet != null) ? tweet : "";
-			System.out.print(twArray.length + "\n");
-			return twArray;
-		} catch (MalformedURLException e) {
-			throw new IOException("Invalid endpoint URL specified.", e);
-		} finally {
-			if (connection != null) {
-				connection.disconnect();
-			}
-		}
-	}
-
-
 	// Writes a request to a connection
 	private static boolean writeRequest(HttpsURLConnection connection,
 			String textBody) {
@@ -429,7 +254,7 @@ public class GetTweets {
 	private static String readResponse(HttpsURLConnection connection) {
 		try {
 			StringBuilder str = new StringBuilder();
-//			System.out.println("!!!!!!"+connection.toString());
+
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					connection.getInputStream()));
 			String line = "";
@@ -441,13 +266,74 @@ public class GetTweets {
 			return new String();
 		}
 	}
-	
-//	public static void main(String[] args) {
-//		TweetBean[] tweetBeanArray = new GetTweets().performGetHashTags("pittsburgh" , "ktv");
-//		System.out.println(tweetBeanArray.length);
-//		for (TweetBean t : tweetBeanArray) {
-//			System.out.println(t.getTag());
-//		}
-//	}
 
 }
+
+/*
+ * 	// Parse Twitter Date String
+	public static Date getTwitterDate(String date) throws ParseException,
+			java.text.ParseException {
+		final String TWITTER = "EEE, dd MMM yyyy HH:mm:ss Z";
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.ENGLISH);
+		dateFormat.setLenient(false);
+		Date created = null;
+		try {
+			created = dateFormat.parse(date);
+			System.out.print("date created" + created);
+			return created;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public static int getTweetNumByMonth(int month, String place) {
+		List<String> errors = new ArrayList<String>();
+		int result = 0;
+		try {
+
+			if (errors.size() != 0) {
+				// return "c_login.jsp";
+			}
+			System.out.println("search is \n" + place);
+			int count = 499;
+			if (place != null) {
+
+				String token = requestBearerToken("https://api.twitter.com/oauth2/token");
+
+				String queryUrlString = "https://api.twitter.com/1.1/search/tweets.json?q="
+						+ URLEncoder.encode(place)
+						+ "&count="
+						+ count
+						+ "&lang=en" + "&locations=" + URLEncoder.encode(place);
+				TweetBean[] tweetBeanArray = fetchTimelineTweet(queryUrlString,
+						token);
+				if (tweetBeanArray != null) {
+					for (int i = 0; i < tweetBeanArray.length; i++) {
+						String dateString = tweetBeanArray[i].getDateStr();
+						Date nextDate = getTwitterDate(dateString);
+						@SuppressWarnings("deprecation")
+						int month1 = nextDate.getMonth();
+						System.out.print(i + "   month is " + month1 + "\n");
+						if (month1 == month)
+							result++;
+						System.out.print(nextDate + "\n");
+					}
+
+					System.out.println("!!!!result is" + result);
+					System.out
+							.println("!!!!array size" + tweetBeanArray.length);
+					return result;
+				}
+			}
+			// System.out.println("Tweet result is \n" + tweet+"]]]]");
+			// HttpSession session = request.getSession();
+
+			return result;
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return result;
+		}
+	}
+
+ * */

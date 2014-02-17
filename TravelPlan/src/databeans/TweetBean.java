@@ -13,6 +13,7 @@ public class TweetBean implements Serializable{
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
+
 	public String getText() {
 		return text;
 	}
