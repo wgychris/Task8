@@ -133,7 +133,8 @@ public class GetTweets {
 						+ URLEncoder.encode(key)
 						+ "&count="
 						+ count
-						+ "&lang=en";
+						+ "&lang=en"
+						+ "&goecode=" + locations[0] + "," + locations[1] + "," + "1000mi";
 						//+ "goecode=" + locations[0] + "," + locations[1] + "," + "500mi";
 				//System.out.println("*******url is " + queryUrlString);
 				mapData[] coordArray = fetchGeo(queryUrlString, token);

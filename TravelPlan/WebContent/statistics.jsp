@@ -6,7 +6,7 @@
 <html>
 <head>
 <%
-					mapData[] cityArray = (mapData[])request.getAttribute("maps");
+					//mapData[] cityArray = (mapData[])request.getAttribute("maps");
 //mapData[] cityArray = new mapData[3];
 //cityArray[0] = new mapData(37.4232, -122.1697);
 //request.setAttribute("cityArray", cityArray);
@@ -32,7 +32,7 @@
 			
 						var data = google.visualization.arrayToDataTable([
 										[ 'Lat', 'Lon' ]
-										<c:forEach items="${cityArray}" var="city"> 
+										<c:forEach items="${maps}" var="city"> 
 										,[ ${city.lat}, ${city.lon}]
 										</c:forEach>
 										]);
