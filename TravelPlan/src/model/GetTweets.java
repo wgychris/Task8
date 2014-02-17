@@ -97,12 +97,8 @@ public class GetTweets {
 				JSONObject geoJsonBig = (JSONObject) next.get("geo");
 				//System.out.print("?Null" + (geoJsonBig == null) + "\n");
 				if (geoJsonBig != null) {
-					//System.out.print("geoJsonBig" + geoJsonBig.toString()
-						//	+ "\n");
 					JSONArray coordArray = (JSONArray) geoJsonBig
 							.get("coordinates");
-					//System.out.print("coordArray is " + coordArray.toString()
-						//	+ "\n");
 					if (coordArray.size() == 2) {
 						Double lat = (Double) coordArray.get(0);
 						Double lon = (Double) coordArray.get(1);
@@ -141,14 +137,14 @@ public class GetTweets {
 			if (place != null) {
 
 				String token = requestBearerToken("https://api.twitter.com/oauth2/token");
-
+				double [] locations = GeoInfo.getGeoCode(place);
 				String queryUrlString = "https://api.twitter.com/1.1/search/tweets.json?q="
 						+ URLEncoder.encode(key)
 						+ "&count="
 						+ count
 						+ "&lang=en"
-						+ "&locations="
-						+ URLEncoder.encode(place);
+						+ "goecode=" + locations[0] + "," + locations[1] + "," + "500mi";
+				System.out.println("*******url is " + queryUrlString);
 				Coordinate[] coordArray = fetchGeo(queryUrlString, token);
 				System.out
 						.println("!!!!coordArray size is" + coordArray.length);
@@ -449,6 +445,7 @@ public class GetTweets {
 //		for (TweetBean t : tweetBeanArray) {
 //			System.out.println(t.getTag());
 //		}
+//		new GetTweets().getTweetGeo("pittsburgh", "hotel");
 //	}
 
 }
