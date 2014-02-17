@@ -121,7 +121,7 @@ body {
 	href="assets/ico/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed"
 	href="assets/ico/apple-touch-icon-57-precomposed.png">
-<link rel="shortcut icon" href="assets/ico/favicon.png">
+<link rel="shortcut icon" href="assets/ico/favicon1.jpg">
 </head>
 
 <body>
@@ -232,7 +232,7 @@ body {
 			</div>
 
 			<div align="center">
-				<button type="submit" class="btn btn-primary">Share &raquo;</button>
+				<button type="submit" class="btn btn-primary">Make plan &raquo;</button>
 			</div>
 
 		</form>

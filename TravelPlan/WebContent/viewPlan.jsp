@@ -44,6 +44,10 @@
 						</c:forEach>
 					</table>
 				</c:if>
+
+				<br>
+				<h2>My Schedule Timeline</h2>
+				<br>
 				<c:if test="${empty schedules}">
 					<p>No schedule made yet.</p>
 				</c:if>
@@ -83,16 +87,14 @@
 						}
 					</script>
 
-					<div id="example2.2"
-						style="width: 900px; height: ${100*scheduleSize}px;"></div>
+					<div align="center" id="example2.2"
+						style="width: 900px; height: ${60*scheduleSize}px;"></div>
 				</c:if>
-
-
 
 				<hr>
 				<p>
 					<a class="btn btn-default" href="search.do">&laquo; Back</a>
-				
+
 				</p>
 			</div>
 		</div>

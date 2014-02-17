@@ -132,7 +132,7 @@ public class ResultAction extends Action {
 				planTweetDAO.createAutoIncrement(ptb);
 			}
 			request.setAttribute("message",
-					"You have sucessfully shared your travel plan on Twitter");
+					"You have sucessfully made your travel plan.");
 			Transaction.commit();
 			return "success.jsp";
 		} catch (RollbackException e) {

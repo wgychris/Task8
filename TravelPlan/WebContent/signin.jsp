@@ -14,9 +14,9 @@
 						<div class="span6">
 							<table class="table">
 								<tr>
-									<td><div class="text-right">Twitter</div></td>
+									<td><div class="text-right">Username</div></td>
 									<td><div class="text-left">
-											<input type="text" name = "userName" placeholder="Twitter">
+											<input type="text" name = "userName" placeholder="Username">
 										</div></td>
 								</tr>
 								<tr>

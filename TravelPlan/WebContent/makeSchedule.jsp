@@ -7,7 +7,7 @@
 			<div class="span12">
 				<jsp:include page="error-list.jsp" />
 				<div class="row-fluid">
-					<h2>Make Schedule for</h2>
+					<h2>Make Schedule</h2>
 					<br>
 					<div class="span3"></div>
 					<form class="form-horizontal" method="POST"
@@ -22,7 +22,7 @@
 										</div></td>
 								</tr>
 								<tr>
-									<td align="right"><div class="text-right">return</div></td>
+									<td align="right"><div class="text-right">Return</div></td>
 									<td><div class="text-left">
 											<input type="date" name="dateTo" placeholder="yyyy-mm-dd">
 										</div></td>

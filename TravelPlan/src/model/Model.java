@@ -17,7 +17,6 @@ import databeans.UserBean;
 public class Model {
 	private UserDAO uDAO;
 	private PlanDAO planDAO;
-	private StatisticsDAO statisticsDAO;
 	private PlanFlickrDAO planFlickerDAO;
 	private PlanTweetDAO planTweetDAO;
 	//private GetTweetsDAO getTweetsDAO;
@@ -29,7 +28,6 @@ public class Model {
 
 			ConnectionPool pool = new ConnectionPool(jdbcDriver, jdbcURL);
 			uDAO = new UserDAO("user", pool);
-			statisticsDAO = new StatisticsDAO("statistics", pool);
 			planDAO = new PlanDAO("plan", pool);
 			planFlickerDAO = new PlanFlickrDAO("planFlicker", pool);
 			planTweetDAO = new PlanTweetDAO("planTweet", pool);
@@ -61,9 +59,6 @@ public class Model {
 		return planDAO;
 	}
 
-	public StatisticsDAO getStatisticsDAO() {
-		return statisticsDAO;
-	}
 
 	public PlanFlickrDAO getPlanFlickerDAO() {
 		return planFlickerDAO;
