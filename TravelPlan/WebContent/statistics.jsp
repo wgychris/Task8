@@ -47,6 +47,9 @@
 		</form>
 	</div>
 	<div id="chart_div" style="width: 1000px; height: 500px;"></div>
+	<div>
+		<img border="0" src="${url }" >
+	</div>
 </body>
 </html>
 <jsp:include page="template-bottom.jsp" />
