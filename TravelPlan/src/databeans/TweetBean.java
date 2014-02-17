@@ -6,6 +6,13 @@ import java.io.Serializable;
 public class TweetBean implements Serializable{
 	private String text;
 	private long favourites_count;
+	private String tag;
+	public String getTag() {
+		return tag;
+	}
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 	public String getText() {
 		return text;
 	}
