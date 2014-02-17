@@ -92,16 +92,16 @@ public class GetTweets {
 			System.out.print("come 1 \n");
 			while (iterator.hasNext()) {
 				JSONObject next = iterator.next();
-				System.out.print("next" + next.toString() + "\n");
+				//System.out.print("next" + next.toString() + "\n");
 				JSONObject geoJsonBig = (JSONObject) next.get("geo");
-				System.out.print("?Null" + (geoJsonBig == null) + "\n");
+				//System.out.print("?Null" + (geoJsonBig == null) + "\n");
 				if (geoJsonBig != null) {
-					System.out.print("geoJsonBig" + geoJsonBig.toString()
-							+ "\n");
+					//System.out.print("geoJsonBig" + geoJsonBig.toString()
+						//	+ "\n");
 					JSONArray coordArray = (JSONArray) geoJsonBig
 							.get("coordinates");
-					System.out.print("coordArray is " + coordArray.toString()
-							+ "\n");
+					//System.out.print("coordArray is " + coordArray.toString()
+						//	+ "\n");
 					if (coordArray.size() == 2) {
 						Double lat = (Double) coordArray.get(0);
 						Double lon = (Double) coordArray.get(1);
@@ -127,8 +127,9 @@ public class GetTweets {
 		}
 	}
 
-	public static int getTweetGeo(String place, String key) {
+	public static TweetGeoBean[] getTweetGeo(String place, String key) {
 		List<String> errors = new ArrayList<String>();
+		TweetGeoBean[] rs = new TweetGeoBean[0];
 		try {
 
 			if (errors.size() != 0) {
@@ -150,17 +151,17 @@ public class GetTweets {
 				Coordiate[] coordArray = fetchGeo(queryUrlString, token);
 				System.out
 						.println("!!!!coordArray size is" + coordArray.length);
-				TweetGeoBean[] rs = new TweetGeoBean[coordArray.length];
+			    rs = new TweetGeoBean[coordArray.length];
 				for(int i = 0; i < rs.length; i++) {
 					rs[i].setLat(coordArray[i].lat);
 					rs[i].setLon(coordArray[i].lon);
 				}
 
 			}
-			return 0;
+			return rs;
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return 1;
+			return rs;
 		}
 	}
 	
