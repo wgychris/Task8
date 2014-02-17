@@ -10,10 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.genericdao.RollbackException;
 
+import databeans.TweetBean;
 import databeans.UserBean;
+import model.GetTweets;
 import model.Model;
 
 import org.genericdao.*;
+
+import utils.CloudMaker;
+
+import org.json.JSONException;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class StatisticsAction extends Action {
 
@@ -37,11 +50,23 @@ public class StatisticsAction extends Action {
 					.getAttribute("user");
 
 			Transaction.begin();
+			
 			if(request.getParameter("place")!=null) {
 				String place = request.getParameter("place");
+				TweetBean[] tbarray =  GetTweets.performGetHashTags(place, "NBA");
+				StringBuilder sb = new StringBuilder();
+				for (TweetBean tweet : tbarray) {
+					sb.append(tweet.getTag());
+					sb.append(" ");
+				}
+				String words = sb.toString();
+//				String [] words = {"Peking", "Pittsburgh","NewYord","CMU","Nanjing"};
+				String url = CloudMaker.getWordCloud(words);
 				request.setAttribute("place", place);
+				request.setAttribute("url", url);
 			} else {
 				request.setAttribute("place", "Your Choice");
+				request.setAttribute("url", "");
 			}
 			
 			

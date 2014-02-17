@@ -17,18 +17,18 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class CloudMaker {
 	//return url of pic
-	public static String getWordCloud (String[] keywords) {
+	public static String getWordCloud (String keywords) {
 		try {
-			StringBuilder sb = new StringBuilder();
-			for (String s : keywords) {
-				sb.append(s);
-				sb.append(" ");
-			}
-			String words = sb.toString();
+//			StringBuilder sb = new StringBuilder();
+//			for (String s : keywords) {
+//				sb.append(s);
+//				sb.append(" ");
+//			}
+//			String words = sb.toString();
 			HttpResponse<JsonNode> request = Unirest.post("https://gatheringpoint-word-cloud-maker.p.mashape.com/index.php")
 					  .header("X-Mashape-Authorization", "X7BgaL6YVe953dH7vdUwK1PciBWYYDlX")
 					  .field("height", "500")
-					  .field("textblock", words)
+					  .field("textblock", keywords)
 					  .field("width", "400")
 					  .asJson();
 			JsonNode node = request.getBody();

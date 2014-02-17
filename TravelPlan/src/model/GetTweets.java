@@ -33,6 +33,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
+import utils.GeoInfo;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import databeans.*;
@@ -195,6 +196,45 @@ public class GetTweets {
 			return null;
 		}
 	}
+	
+	public static TweetBean[]  performGetHashTags(String place, String keyword) {
+		List<String> errors = new ArrayList<String>();
+
+		try {
+
+			if (errors.size() != 0) {
+				// return "c_login.jsp";
+			}
+			System.out.println("search is \n"
+					+place);
+			int count = 300;
+			if (place != null) {
+
+				double [] location = GeoInfo.getGeoCode(place);
+				
+				String token = requestBearerToken("https://api.twitter.com/oauth2/token");
+				
+				String queryUrlString = "https://api.twitter.com/1.1/search/tweets.json?q=" + keyword
+						+ "&count="+count+"&lang=en&geocode=" + location[0] + "," + location[1] + "," + "500mi";
+			
+				TweetBean[] tweetBeanArray = fetchTweetwithTags(queryUrlString,
+						token);
+				if (tweetBeanArray != null) {
+					//request.setAttribute("tweets", tweetBeanArray);
+					System.out.println("array length is " + tweetBeanArray.length);
+					return tweetBeanArray;
+					
+				}
+			}
+			// System.out.println("Tweet result is \n" + tweet+"]]]]");
+			//HttpSession session = request.getSession();
+
+			return null;
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return null;
+		}
+	}
 
 	/**
 	 * @param args
@@ -308,6 +348,66 @@ public class GetTweets {
 			}
 		}
 	}
+	
+	private static TweetBean[] fetchTweetwithTags(String endPointUrl,
+			String bearerToken) throws IOException {
+		HttpsURLConnection connection = null;
+
+		try {
+			URL url = new URL(endPointUrl);
+			connection = (HttpsURLConnection) url.openConnection();
+			connection.setDoOutput(true);
+			connection.setDoInput(true);
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Host", "api.twitter.com");
+			connection.setRequestProperty("User-Agent", "yusizApp");
+			connection.setRequestProperty("Authorization", "Bearer "
+					+ bearerToken);
+			connection.setUseCaches(false);
+			System.out.print("***********"+connection);
+			JSONObject obj = (JSONObject) JSONValue
+					.parse(readResponse(connection));
+
+			JSONArray msg = (JSONArray) obj.get("statuses");
+			Iterator<JSONObject> iterator = msg.iterator();
+			// int i = 0;
+			ArrayList<TweetBean> resultArrayList = new ArrayList<TweetBean>();
+			while (iterator.hasNext()) {
+				JSONObject next = iterator.next();
+//				System.out.println("next " + next.toString());
+				JSONObject entities = (JSONObject) next.get("entities");
+//				System.out.println("entites " + entities.toString());
+				JSONArray hashtags = (JSONArray) entities.get("hashtags");
+				if ( hashtags == null || hashtags.size() == 0 ) {
+					continue;
+				} else {
+					JSONObject tag = (JSONObject) hashtags.get(0);
+					String content = (String) tag.get("text");
+//					System.out.println(content );
+					TweetBean tBean = new TweetBean();
+					tBean.setTag(content);
+					resultArrayList.add(tBean);
+					
+				}
+				
+				
+			}
+			System.out.print(resultArrayList.size() + "\n");
+			TweetBean[] twArray = new TweetBean[resultArrayList.size()];
+			for (int i = 0; i < resultArrayList.size(); i++)
+				twArray[i] = resultArrayList.get(i);
+			// return (tweet != null) ? tweet : "";
+			System.out.print(twArray.length + "\n");
+			return twArray;
+		} catch (MalformedURLException e) {
+			throw new IOException("Invalid endpoint URL specified.", e);
+		} finally {
+			if (connection != null) {
+				connection.disconnect();
+			}
+		}
+	}
+
 
 	// Writes a request to a connection
 	private static boolean writeRequest(HttpsURLConnection connection,
@@ -329,7 +429,7 @@ public class GetTweets {
 	private static String readResponse(HttpsURLConnection connection) {
 		try {
 			StringBuilder str = new StringBuilder();
-
+//			System.out.println("!!!!!!"+connection.toString());
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					connection.getInputStream()));
 			String line = "";
@@ -341,5 +441,13 @@ public class GetTweets {
 			return new String();
 		}
 	}
+	
+//	public static void main(String[] args) {
+//		TweetBean[] tweetBeanArray = new GetTweets().performGetHashTags("pittsburgh" , "ktv");
+//		System.out.println(tweetBeanArray.length);
+//		for (TweetBean t : tweetBeanArray) {
+//			System.out.println(t.getTag());
+//		}
+//	}
 
 }

@@ -32,7 +32,7 @@ body {
 }
 
 .tweet {
-	width: 90%;
+	width: 100%;
 	padding: 15px;
 	background: #fff;
 	margin: 8px;
