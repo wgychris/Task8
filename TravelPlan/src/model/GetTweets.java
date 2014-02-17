@@ -55,18 +55,18 @@ public class GetTweets {
 		return "getTweets.do";
 	}
 
-	public static class Coordiate {
+	public static class Coordinate {
 		public double lat;
 		public double lon;
 
-		public Coordiate(double lat, double lon) {
+		public Coordinate(double lat, double lon) {
 			this.lat = lat;
 			this.lon = lon;
 		}
 	}
 
 
-	private static Coordiate[] fetchGeo(String endPointUrl, String bearerToken)
+	private static Coordinate[] fetchGeo(String endPointUrl, String bearerToken)
 			throws IOException {
 		HttpsURLConnection connection = null;
 
@@ -88,7 +88,7 @@ public class GetTweets {
 			JSONArray msg = (JSONArray) obj.get("statuses");
 			Iterator<JSONObject> iterator = msg.iterator();
 			// int i = 0;
-			ArrayList<Coordiate> resultArrayList = new ArrayList<Coordiate>();
+			ArrayList<Coordinate> resultArrayList = new ArrayList<Coordinate>();
 			System.out.print("come 1 \n");
 			while (iterator.hasNext()) {
 				JSONObject next = iterator.next();
@@ -105,7 +105,7 @@ public class GetTweets {
 					if (coordArray.size() == 2) {
 						Double lat = (Double) coordArray.get(0);
 						Double lon = (Double) coordArray.get(1);
-						Coordiate cor = new Coordiate(lat, lon);
+						Coordinate cor = new Coordinate(lat, lon);
 						resultArrayList.add(cor);
 					}
 				}
@@ -113,7 +113,7 @@ public class GetTweets {
 			}
 
 			System.out.print(resultArrayList.size() + "\n");
-			Coordiate[] cdArray = new Coordiate[resultArrayList.size()];
+			Coordinate[] cdArray = new Coordinate[resultArrayList.size()];
 			for (int i = 0; i < resultArrayList.size(); i++)
 				cdArray[i] = resultArrayList.get(i);
 			System.out.print(cdArray.length + "\n");
@@ -127,7 +127,7 @@ public class GetTweets {
 		}
 	}
 
-	public static Coordiate[] getTweetGeo(String place, String key) {
+	public static Coordinate[] getTweetGeo(String place, String key) {
 		List<String> errors = new ArrayList<String>();
 		//TweetGeoBean[] rs = new TweetGeoBean[0];
 		try {
@@ -148,7 +148,7 @@ public class GetTweets {
 						+ "&lang=en"
 						+ "&locations="
 						+ URLEncoder.encode(place);
-				Coordiate[] coordArray = fetchGeo(queryUrlString, token);
+				Coordinate[] coordArray = fetchGeo(queryUrlString, token);
 				System.out
 						.println("!!!!coordArray size is" + coordArray.length);
 				
