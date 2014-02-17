@@ -268,3 +268,72 @@ public class GetT {
 	}
 
 }
+
+/*
+ * 	// Parse Twitter Date String
+	public static Date getTwitterDate(String date) throws ParseException,
+			java.text.ParseException {
+		final String TWITTER = "EEE, dd MMM yyyy HH:mm:ss Z";
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.ENGLISH);
+		dateFormat.setLenient(false);
+		Date created = null;
+		try {
+			created = dateFormat.parse(date);
+			System.out.print("date created" + created);
+			return created;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public static int getTweetNumByMonth(int month, String place) {
+		List<String> errors = new ArrayList<String>();
+		int result = 0;
+		try {
+
+			if (errors.size() != 0) {
+				// return "c_login.jsp";
+			}
+			System.out.println("search is \n" + place);
+			int count = 499;
+			if (place != null) {
+
+				String token = requestBearerToken("https://api.twitter.com/oauth2/token");
+
+				String queryUrlString = "https://api.twitter.com/1.1/search/tweets.json?q="
+						+ URLEncoder.encode(place)
+						+ "&count="
+						+ count
+						+ "&lang=en" + "&locations=" + URLEncoder.encode(place);
+				TweetBean[] tweetBeanArray = fetchTimelineTweet(queryUrlString,
+						token);
+				if (tweetBeanArray != null) {
+					for (int i = 0; i < tweetBeanArray.length; i++) {
+						String dateString = tweetBeanArray[i].getDateStr();
+						Date nextDate = getTwitterDate(dateString);
+						@SuppressWarnings("deprecation")
+						int month1 = nextDate.getMonth();
+						System.out.print(i + "   month is " + month1 + "\n");
+						if (month1 == month)
+							result++;
+						System.out.print(nextDate + "\n");
+					}
+
+					System.out.println("!!!!result is" + result);
+					System.out
+							.println("!!!!array size" + tweetBeanArray.length);
+					return result;
+				}
+			}
+			// System.out.println("Tweet result is \n" + tweet+"]]]]");
+			// HttpSession session = request.getSession();
+
+			return result;
+		} catch (Exception e) {
+			errors.add(e.getMessage());
+			return result;
+		}
+	}
+
+ * */

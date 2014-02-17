@@ -4,6 +4,7 @@ package databeans;
 public class TweetBean {
 	private String text;
 	private long favourites_count;
+
 	public String getText() {
 		return text;
 	}
