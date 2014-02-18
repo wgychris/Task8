@@ -140,15 +140,26 @@ public class GetTweets {
 				mapData[] coordArray = fetchGeo(queryUrlString, token);
 				System.out
 						.println("!!!!coordArray size is" + coordArray.length);
+				ArrayList<mapData> filteredArrayList = new ArrayList<mapData>();
+				for(int i = 0; i < coordArray.length; i++) {
+					System.out.print("lat lon "+coordArray[i].lat+","+
+				coordArray[i].lon+"\n");
+					if(Math.abs(coordArray[i].lat - locations[0]) > 10
+				||	Math.abs(coordArray[i].lon - locations[1]) > 10)
+						continue;
+					filteredArrayList.add(coordArray[i]);
+				}
+				mapData[] filteredArray = new mapData[filteredArrayList.size()];
+				for(int i = 0; i < filteredArrayList.size(); i++)
+					filteredArray[i] = filteredArrayList.get(i);
 				
-				
-				return coordArray;
+				return filteredArray;
 
 			}
-			return null;
+			return new mapData[0] ;
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return null;
+			return new mapData[0] ;
 		}
 	}
 	
@@ -176,10 +187,10 @@ public class GetTweets {
 				getTweetGeo(place,"hotel");
 				return tweetBeanArray;// tweetBeanArray;
 			}
-			return null;
+			return new TweetBean[0];
 		} catch (Exception e) {
 			errors.add(e.getMessage());
-			return null;
+			return new TweetBean[0];
 		}
 	}
 	
@@ -434,7 +445,12 @@ public class GetTweets {
 //		for (TweetBean t : tweetBeanArray) {
 //			System.out.println(t.getTag());
 //		}
-//		new GetTweets().getTweetGeo("pittsburgh", "hotel");
+//		 mapData[] rDatas = new GetTweets().getTweetGeo("pittsburgh", "hotel");
+//		 for(mapData m: rDatas) {
+//			 System.out.print("lat and lon:"+m.lat+", "+m.lon+"\n");
+//		 }
+//			 
 //	}
+
 
 }
