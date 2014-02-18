@@ -54,7 +54,7 @@ public class StatisticsAction extends Action {
 			
 			if(request.getParameter("place")!=null) {
 				String place = request.getParameter("place");
-				TweetBean[] tbarray =  GetTweets.performGetHashTags(place, "NBA");
+				TweetBean[] tbarray =  GetTweets.performGetHashTags(place, "vacation");
 				StringBuilder sb = new StringBuilder();
 				for (TweetBean tweet : tbarray) {
 					sb.append(tweet.getTag());
@@ -63,7 +63,7 @@ public class StatisticsAction extends Action {
 				String words = sb.toString();
 //				String [] words = {"Peking", "Pittsburgh","NewYord","CMU","Nanjing"};
 				String url = CloudMaker.getWordCloud(words);
-				mapData[] maps=GetTweets.getTweetGeo(place,"hotel");
+				mapData[] maps=GetTweets.getTweetGeo(place,"restaurant");
 				//System.out.println("length:"+maps.length);
 				request.setAttribute("maps", maps);
 				request.setAttribute("place", place);

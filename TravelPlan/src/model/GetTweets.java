@@ -134,7 +134,7 @@ public class GetTweets {
 						+ "&count="
 						+ count
 						+ "&lang=en"
-						+ "&goecode=" + locations[0] + "," + locations[1] + "," + "1000mi";
+						+ "&geocode=" + locations[0] + "%2C" + locations[1] + "%2C" + "100mi";
 						//+ "goecode=" + locations[0] + "," + locations[1] + "," + "500mi";
 				//System.out.println("*******url is " + queryUrlString);
 				mapData[] coordArray = fetchGeo(queryUrlString, token);
@@ -204,7 +204,7 @@ public class GetTweets {
 			}
 			System.out.println("search is \n"
 					+place);
-			int count = 300;
+			int count = 100;
 			if (place != null) {
 
 				double [] location = GeoInfo.getGeoCode(place);
@@ -212,7 +212,7 @@ public class GetTweets {
 				String token = requestBearerToken("https://api.twitter.com/oauth2/token");
 				
 				String queryUrlString = "https://api.twitter.com/1.1/search/tweets.json?q=" + keyword
-						+ "&count="+count+"&lang=en&geocode=" + location[0] + "," + location[1] + "," + "500mi";
+						+ "&count="+count+"&lang=en&geocode=" + location[0] + "%2C" + location[1] + "%2C" + "200mi";
 			
 				TweetBean[] tweetBeanArray = fetchTweetwithTags(queryUrlString,
 						token);
