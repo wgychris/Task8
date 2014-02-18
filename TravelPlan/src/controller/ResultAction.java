@@ -28,6 +28,8 @@ import model.PlanTweetDAO;
 import org.genericdao.*;
 import org.mybeans.form.FormBeanFactory;
 
+import utils.GeoInfo;
+
 public class ResultAction extends Action {
 	private FormBeanFactory<ResultForm> formBeanFactory = FormBeanFactory
 			.getInstance(ResultForm.class);

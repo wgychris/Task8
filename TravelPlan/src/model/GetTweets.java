@@ -172,19 +172,19 @@ public class GetTweets {
 			}
 			int count = 30;
 			if (place != null) {
-
+				double [] locations = GeoInfo.getGeoCode(place);
 				String token = requestBearerToken("https://api.twitter.com/oauth2/token");
 
 				String queryUrlString = "https://api.twitter.com/1.1/search/tweets.json?q="
 						+ URLEncoder.encode(place)
 						+ "&count="
 						+ count
-						+ "&lang=en" + "&locations=" + URLEncoder.encode(place);
+						+ "&lang=en"
+						+ "&geocode=" + locations[0] + "%2C" + locations[1] + "%2C" + "500mi";
 				System.out.print("after geo");
 				TweetBean[] tweetBeanArray =
-				 fetchTimelineTweet(queryUrlString,
-				 token);
-				getTweetGeo(place,"hotel");
+				 fetchTimelineTweet(queryUrlString,token);
+				//getTweetGeo(place,"hotel");
 				return tweetBeanArray;// tweetBeanArray;
 			}
 			return new TweetBean[0];
